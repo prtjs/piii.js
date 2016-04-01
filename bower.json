@@ -1,0 +1,12 @@
+{
+    "name": "piii.js",
+    "version": "0.0.0",
+    "description": "Extrair, substituir ou verificar se há, palavrões em uma string.",
+    "main": "piii.js",
+    "authors": [{
+        "name": "Matheus Alves",
+        "email": "theuves@outlook.com",
+        "homepage": "https://github.com/theuves"
+    }],
+    "license": "MIT"
+}
