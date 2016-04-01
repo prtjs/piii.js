@@ -28,7 +28,7 @@ module.exports = (function () {
         verificar: function (str) {
             if (typeof str === 'string') {
                 if (str.match(regexp)) return true;
-                return false
+                return false;
             }
         }
     };
