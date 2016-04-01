@@ -8,5 +8,10 @@
         "email": "theuves@outlook.com",
         "homepage": "https://github.com/theuves"
     }],
-    "license": "MIT"
+    "license": "MIT",
+    "ignore": [
+        ".npmignore",
+        "index.js",
+        "package.json"
+    ]
 }
