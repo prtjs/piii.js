@@ -7,18 +7,6 @@
  - Com [NPM](https://npmjs.com/): `npm install --save piii`
  - Com [Bower](http://bower.io/): `bower install --save piii.js`
 
-Para Node.js adicione:
-
-```js
-var Piii = require('piii');
-```
-
-Ou para o navegador adicione no HTML:
-
-```html
-<script src="piii.js" type="text/javascript"></script>
-```
-
 ## Uso
 
 ```js
@@ -40,12 +28,22 @@ Piii.substituir('Que porra!', '(piii)'); // 'Que (piii)!'
 Piii.verificar('Filho de uma Puta!'); // true
 ```
 
-Palavrões com letras repetidas tambem são filtradas, veja:
+Palavrões com letras repetidas também são filtradas, veja:
 
 ```js
 Piii.verificar('Caralhooooo!'); // true
 Piii.verificar('Que porrrrra é esssa?'); // true
 ```
+
+É possivel modificar o palavrão filtrado antes de substitui-lo, exemplo:
+
+```
+Piii.substituir('Vá se foder!', function (palavra) {
+    return palavra.charAt(0) + '*'.repeat(palavra.length);
+});
+```
+
+O exemplo retornará: `Vá se f****!`.
 
 ## Licença
 
