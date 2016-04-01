@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = (function () {
+var Piii = (function () {
     var palavroes = [
         'po+rr+(i+nha+|a+)',
         '(c|k)a+ra+lh(a+da+|(ã|a)o|i+nho+|o+)',
@@ -22,8 +22,8 @@ module.exports = (function () {
         extrair: function (str) {
             if (typeof str === 'string') return str.match(regexp) || [];
         },
-        substituir: function (str, subs) {
-            if (typeof string === 'string' && subs) return str.replace(regexp, subs);
+        substituir: function (str, subst) {
+            if (typeof str === 'string' && subst) return str.replace(regexp, subst);
         },
         verificar: function (str) {
             if (typeof str === 'string') {
@@ -33,3 +33,5 @@ module.exports = (function () {
         }
     };
 })();
+
+module.exports = Piii;

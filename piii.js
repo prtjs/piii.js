@@ -22,8 +22,8 @@ var Piii = (function () {
         extrair: function (str) {
             if (typeof str === 'string') return str.match(regexp) || [];
         },
-        substituir: function (str, subs) {
-            if (typeof string === 'string' && subs) return str.replace(regexp, subs);
+        substituir: function (str, subst) {
+            if (typeof str === 'string' && subst) return str.replace(regexp, subst);
         },
         verificar: function (str) {
             if (typeof str === 'string') {
