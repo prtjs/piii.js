@@ -2,6 +2,7 @@
 
 var Piii = (function () {
     var plvrs = [
+        '69',
         'po(rr|h)(a|inha(zinha)?|ona|ao)',
         'cara(lh|i)(o(zinho|zao)?|inho(zinho)?|ao|ada)',
         'carai(o(zinho|zao)?|nho(zinho)?|ao|ada)',
