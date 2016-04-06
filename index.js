@@ -2,19 +2,29 @@
 
 var Piii = (function () {
     var plvrs = [
-        'po(rr|h)(a|inha(zinha)?|ona|ão)', 
-        'caralh(o(zinho|zão)?|inho(zinho)?|ão|ada)',
-        'carai(o(zinho|zão)?|nho(zinho)?|ão|ada)',
-        'put(a|o|inha(zinha)?|ona|ão)',
-        'b(u|o)cet(a(zona|zinha)?|inha(zinha)?|ona|ão)',
-        '(c|k)(ú|u|uh|uzinho|uzão|uzona)',
-        'pint(o(zinho|zão)?|ão)',
+        'po(rr|h)(a|inha(zinha)?|ona|ao)',
+        'cara(lh|i)(o(zinho|zao)?|inho(zinho)?|ao|ada)',
+        'carai(o(zinho|zao)?|nho(zinho)?|ao|ada)',
+        'put(a|o|inha(zinha)?|ona|ao)',
+        'b(u|o)cet(a(zona|zinha)?|inha(zinha)?|ona|ao)',
+        '(c|k)(u|uh|uzinho|uzao|uzona)',
+        'pint(o(zinho|zao)?|ao)',
         'f(o|u)d(er|emos)',
         'fod(a|inha|ão|er|o|es|e|emos|eis|em)'
     ];
 
     for (var i in plvrs) {
-        plvrs[i] = plvrs[i].replace(/([\wâàáãêéíõôóûúüç])/g, '$1+');
+        plvrs[i] = plvrs[i]
+            .replace(/([\w])/g, '$1+')
+            .replace(/(a|ã)/g, '[$124âàáã]')
+            .replace(/(c)/g, '[$1ç]')
+            .replace(/(e)/g, '[$13êé]')
+            .replace(/(i)/g, '[$13í]')
+            .replace(/(o)/g, '[$1õôó]')
+            .replace(/(s)/g, '[$15]')
+            .replace(/(t)/g, '[$17]')
+            .replace(/(u)/g, '[$1ûúü]');
+
         plvrs[i] = '(\\b' + plvrs[i] + '\\b)';
     }
 

@@ -28,11 +28,11 @@ Piii.substituir('Que porra!', '(piii)'); // 'Que (piii)!'
 Piii.verificar('Filho de uma Puta!'); // true
 ```
 
-Palavrões com letras repetidas também são filtradas, veja:
+Palavrões com letras repetidas ou com números, também são filtradas, veja:
 
 ```js
 Piii.verificar('Caralhooooo!'); // true
-Piii.verificar('Que porrrrra é esssa?'); // true
+Piii.verificar('Que p0rr4 é essa?'); // true
 ```
 
 É possivel modificar o palavrão filtrado antes de substitui-lo, exemplo:
