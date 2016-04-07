@@ -1,6 +1,6 @@
 {
     "name": "piii",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "description": "Extrair, substituir ou verificar se há, palavrões em uma string.",
     "main": "index.js",
     "repository": {
