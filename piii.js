@@ -1,3 +1,5 @@
+//https://github.com/theuves/piii.js
+
 'use strict';
 
 var Piii = (function () {
@@ -12,6 +14,9 @@ var Piii = (function () {
         'pint(o(zinho|zao)?|inho|ao)',
         'v(i|e)ad(o(zinho)?|inho|ao)',
         'f(o|u)d(er|emos)',
+        'rol(a|o)((zinha)?|ao|inha|na)',
+        'pic(a|ona|ao)',
+        'piro(c|k)(a(zinha)?|o|ona)',
         'fod(a|inha|ão|er|o|es|e|emos|eis|em)'
     ];
 
@@ -22,7 +27,7 @@ var Piii = (function () {
             .replace(/(c)/g, '[$1ç]')
             .replace(/(e)/g, '[$13êé]')
             .replace(/(i)/g, '[$13í]')
-            .replace(/(o)/g, '[$1õôó]')
+            .replace(/(o)/g, '[$1õôó0]')
             .replace(/(s)/g, '[$15]')
             .replace(/(t)/g, '[$17]')
             .replace(/(u)/g, '[$1ûúü]');
