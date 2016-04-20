@@ -11,12 +11,10 @@ var Piii = (function () {
         'put(a|o|inha(zinha)?|ona|ao)',
         'b(u|o)cet(a(zona|zinha)?|inha(zinha)?|ona|ao)',
         '(c|k)(u|uh|uzinho|uzao|uzona)',
-        'pint(o(zinho|zao)?|inho|ao)',
-        'v(i|e)ad(o(zinho)?|inho|ao)',
+        'pint(o(zinho|zao)?|ao)',
+        'v(i)ad(o(zinho)?|inho|ao)',
         'f(o|u)d(er|emos)',
-        'rol(a|o)((zinha)?|ao|inha|na)',
-        'pic(a|ona|ao)',
-        'piro(c|k)(a(zinha)?|o|ona)',
+        'piro((c|k)(a(zinha)?|o|ona)|(qu|k)inha)',
         'fod(a|inha|ão|er|o|es|e|emos|eis|em)'
     ];
 
