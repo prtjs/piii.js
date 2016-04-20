@@ -1,6 +1,9 @@
-'use strict';
-
 var Piii = (function () {
+    'use strict';
+
+    // piii.js - https://github.com/theuves/piii.js
+    // Copyright (c) 2016 Matheus Alves
+
     var plvrs = [
         '69',
         'po(rr|h)(a|inha(zinha)?|ona|ao)',
@@ -10,7 +13,9 @@ var Piii = (function () {
         'b(u|o)cet(a(zona|zinha)?|inha(zinha)?|ona|ao)',
         '(c|k)(u|uh|uzinho|uzao|uzona)',
         'pint(o(zinho|zao)?|ao)',
+        'v(i)ad(o(zinho)?|inho|ao)',
         'f(o|u)d(er|emos)',
+        'piro((c|k)(a(zinha)?|o|ona)|(qu|k)inha)',
         'fod(a|inha|ão|er|o|es|e|emos|eis|em)'
     ];
 
@@ -21,7 +26,7 @@ var Piii = (function () {
             .replace(/(c)/g, '[$1ç]')
             .replace(/(e)/g, '[$13êé]')
             .replace(/(i)/g, '[$13í]')
-            .replace(/(o)/g, '[$1õôó]')
+            .replace(/(o)/g, '[$1õôó0]')
             .replace(/(s)/g, '[$15]')
             .replace(/(t)/g, '[$17]')
             .replace(/(u)/g, '[$1ûúü]');
