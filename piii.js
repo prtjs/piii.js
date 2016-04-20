@@ -1,8 +1,9 @@
-//https://github.com/theuves/piii.js
-
-'use strict';
-
 var Piii = (function () {
+    'use strict';
+
+    // piii.js - https://github.com/theuves/piii.js
+    // Copyright (c) 2016 Matheus Alves
+
     var plvrs = [
         '69',
         'po(rr|h)(a|inha(zinha)?|ona|ao)',
