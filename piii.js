@@ -5,7 +5,7 @@ var Piii = (function () {
     // Copyright (c) 2016 Matheus Alves
 
     var plvrs = [
-        '69',
+        '69|fdp|pqp|wtf|fuck',
         'po(rr|h)(a|inha(zinha)?|ona|ao)',
         'cara(lh|i)(o(zinho|zao)?|inho(zinho)?|ao|ada)',
         'carai(o(zinho|zao)?|nho(zinho)?|ao|ada)',
@@ -15,9 +15,10 @@ var Piii = (function () {
         'pint(o(zinho|zao)?|inho|ao)',
         'v(i|e)ad(o(zinho)?|inho|ao)',
         'rol(a|o)((zinha)?|ao|inha|na)',
-        'pic(a|ona|ao)',
+        'pic(a(zinha)?|ona|ao)',
         'f(o|u)d(er|emos)',
-        'piro((c|k)(a(zinha)?|o|ona)|(qu|k)inha)',
+        'merd(a(zinha)?|inha|ona|ao)',
+        'piro((c|k)(a(zinha)?|o|ona|ao)|(qu|k)inha)',
         'fod(a|inha|ão|er|o|es|e|emos|eis|em)'
     ];
 
