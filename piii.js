@@ -16,7 +16,7 @@ var Piii = (function () {
         'v(i|e)ad(o(zinho)?|inho|ao)',
         'rol(a|o)((zinha)?|ao|inha|na)',
         'pic(a(zinha)?|ona|ao)',
-        'f(o|u)d(er|emos)',
+        'f(o|u)d(er|emos|eu|ido|endo)',
         'merd(a(zinha)?|inha|ona|ao)',
         'piro((c|k)(a(zinha)?|o|ona|ao)|(qu|k)inha)',
         'fod(a|inha|ão|er|o|es|e|emos|eis|em)'
