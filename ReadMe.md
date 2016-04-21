@@ -25,7 +25,7 @@ Veja alguns exemplos abaixo:
 ```js
 Piii.extrair('Foda-se essa porra!'); // ['Foda-se', 'porra']
 Piii.substituir('Que porra!', '(piii)'); // 'Que (piii)!'
-Piii.verificar('Filho de uma Puta!'); // true
+Piii.verificar('Filho de uma puta!'); // true
 ```
 
 Palavrões com letras repetidas ou com números, também são filtrados, veja:
