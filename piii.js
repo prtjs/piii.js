@@ -5,7 +5,7 @@ var Piii = (function () {
     // Copyright (c) 2016 Matheus Alves
 
     var plvrs = [
-        '69|fdp|pqp|wtf|fuck|ppk',
+        '69|fdp|pqp|wtf|fuck|ppk|vtnc|vsf',
         'po(rr|h)(a|inha(zinha)?|ona|ao)',
         'cara(lh|i)(o(zinho|zao)?|inho(zinho)?|ao|ada)',
         'carai(o(zinho|zao)?|nho(zinho)?|ao|ada)',
