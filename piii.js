@@ -26,14 +26,22 @@ var Piii = (function () {
     for (var i in plvrs) {
         plvrs[i] = plvrs[i]
             .replace(/([\w])/g, '$1+')
-            .replace(/(a|ã)/g, '[$124âàáã]')
-            .replace(/(c)/g, '[$1ç]')
-            .replace(/(e)/g, '[$13êé]')
-            .replace(/(i)/g, '[$13í]')
-            .replace(/(o)/g, '[$1õôó0]')
-            .replace(/(s)/g, '[$15]')
-            .replace(/(t)/g, '[$17]')
-            .replace(/(u)/g, '[$1ûúü]');
+            .replace(/(a|ã)/g, '[$124áâãàäåæāăą]')
+            .replace(/(c)/g, '[$1çćč]')
+            .replace(/(d)/g, '[$1ďđ]')
+            .replace(/(e)/g, '[$13éêèëēėęěĕə]')
+            .replace(/(g)/g, '[$1ģğ]')
+            .replace(/(i)/g, '[$1îìíıįīï]')
+            .replace(/(k)/g, '[$1ķ]')
+            .replace(/(l)/g, '[$1ĺļľł]')
+            .replace(/(n)/g, '[$1ñńņň]')
+            .replace(/(r)/g, '[$1ŕř]')
+            .replace(/(o)/g, '[$10óôõòöøőœ]')
+            .replace(/(s)/g, '[$15\$ß§śšş]')
+            .replace(/(t)/g, '[$17þťț]')
+            .replace(/(u)/g, '[$1úüùûūůűų]')
+            .replace(/(y)/g, '[$1ý]')
+            .replace(/(z)/g, '[$1źżž]');
 
         plvrs[i] = '(\\b' + plvrs[i] + '\\b)';
     }
