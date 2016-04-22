@@ -20,7 +20,9 @@ var Piii = (function () {
         'merd(a(zinha)?|inha|ona|ao)',
         'piro((c|k)(a(zinha)?|o|ona|ao)|(qu|k)inha)',
         '(pepe|pp)((k|c)(a(zinha)?|ao|ona)|(qu|k)inha)',
-        'fod(a|inha|ão|er|o|es|e|emos|eis|em)'
+        'fod(a|inha|ão|er|o|es|e|emos|eis|em)',
+        'p(u|o)nhet(a(zinha)?|inha|ao|ona)',
+        'tob(a(zinho)?|inha|ao|ona)'
     ];
 
     for (var i in plvrs) {
