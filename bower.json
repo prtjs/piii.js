@@ -6,7 +6,7 @@
   "ignore": [
     ".npmignore",
     "package.json"
-    "src/index.js",
+    "src/piii.js",
     "src/words.json"
   ],
   "repository": {
