@@ -1,16 +1,29 @@
 {
-    "name": "piii",
-    "version": "1.1.0",
-    "description": "Extrair, substituir ou verificar se há, palavrões em uma string.",
-    "main": "index.js",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/theuves/piii.js.git"
-    },
-    "keywords": [
-        "português",
-        "portuguese"
-    ],
-    "author": "Matheus Alves",
-    "license": "MIT"
+  "name": "piii",
+  "version": "1.1.0",
+  "description": "Um filtro de palavrões da língua portuguesa.",
+  "main": "src/piii.js",
+  "dependencies": {
+    "repeat-string": "^1.5.4",
+    "diacritics": "^1.2.3"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.1"
+  },
+  "scripts": {
+    "build": "browserify src/piii.js -s piii -o dist/piii.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/theuves/piii.js.git"
+  },
+  "author": {
+    "name": "Matheus Alves",
+    "email": "theuves@gmail.com",
+  },
+  "contributors": [
+    { "name": "Matheus Alves", "email": "theuves@gmail.com" },
+    { "name": " Marcio Antunes", "email": "cgslivre@cgslivre.com" }
+  ],
+  "license": "MIT"
 }

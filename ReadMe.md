@@ -1,50 +1,31 @@
 # Piii.js
 
-> Extrair, substituir ou verificar se há, palavrões em uma *string*.
+> Um filtro de palavrões da língua portuguesa.
 
 ## Instalação
 
  - Com [NPM](https://npmjs.com/): `npm install --save piii`
  - Com [Bower](http://bower.io/): `bower install --save piii.js`
 
-## Uso
+## Exemplos
 
 ```js
-Piii
-// { extrair: [Function],
-//   substituir: [Function],
-//   verificar: [Function] }
+piii('Vá tomar no cú!', '(piii)'); // retorna 'Vá tomar no (piii)!'
+piii('Vá se ⓕⓞⓓⓔⓡ!', '(piii)'); // retorna 'Vá se (piii)!'
+piii('Que porrrrra é essa?', '(piii)'); // retorna 'Que (piii) é essa?'
+piii('Que m3rd4!', '(piii)'); // retorna 'Que (piii)!'
+piii('PQP', '(piii)'); // retorna '(piii)'
+piii('Filho da ᵽṻțặ!', '(piii)'); // retorna 'Filho da (piii)!'
 ```
 
- - `Piii.extrair` - extrair todos os palavrões de uma *string*
- - `Piii.substituir` - substituir todos os palavrões por outra palavra
- - `Piii.verificar` - verificar se há palavrões em uma *string*
-
-Veja alguns exemplos abaixo:
+Também é possível modificar o palavrão filtrado antes de substitui-lo, veja:
 
 ```js
-Piii.extrair('Foda-se essa porra!'); // ['Foda-se', 'porra']
-Piii.substituir('Que porra!', '(piii)'); // 'Que (piii)!'
-Piii.verificar('Filho de uma puta!'); // true
+piii('Vá se foder!', function (palavrao) {
+    return palavrao.charAt(0) + '*'.repeat(palavrao.length - 1);
+}); // retorna 'Vá se f****!'
 ```
-
-Palavrões com letras repetidas ou com números, também são filtrados, veja:
-
-```js
-Piii.verificar('Caralhooooo!'); // true
-Piii.verificar('Que p0rr4 é essa?'); // true
-```
-
-É possivel modificar o palavrão filtrado antes de substitui-lo, exemplo:
-
-```
-Piii.substituir('Vá se foder!', function (palavra) {
-    return palavra.charAt(0) + '*'.repeat(palavra.length);
-});
-```
-
-O exemplo retornará: `Vá se f****!`.
 
 ## Licença
 
-[MIT](http://theuves.mit-license.org/) &copy; [Matheus Alves](https://twitter.com/theuves)
+MIT &copy; [Matheus Alves](https://github.com/theuves)
