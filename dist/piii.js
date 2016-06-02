@@ -438,11 +438,12 @@ module.exports = function (string, censura) {
 },{"./words.json":4,"diacritics":1,"repeat-string":2}],4:[function(require,module,exports){
 module.exports=[
     "(c|k)(u|uh|u(z|s)inho(((z|s)inho)+)?|u(zao)+(((z|s)inho)+)?|uzona(((z|s)inha)+)?)",
-    "(c|k)ara(((((lh|i)(o|a))|((lh|i)(ada|ao|ona|udo)((da|ao|na|do)+)?)+)(((z|s)inh(o|a))+)?)|(i|(lhi|i)(m|n|nh(o|a))))",
+    "(c|k)ara(lh|i)(o((z|s)inho|(z|s)ao)?|inho((z|s)inho)?|ao|ada|ud(o|a))",
+    "(c|k)arai(o((z|s)inho|(z|s)ao)?|nho((z|s)inho)?|ao|ada)",
     "(pepe|pp)((k|c)(a((z|s)inha)?|ao|ona)|(qu|k)inha)",
     "b(u|o)cet(a((z|s)ona|(z|s)inha)?|inha((z|s)inha)?|ona|ao|ud(a|o))",
     "bilau((z|s)inho|zao)?",
-    "fdp|pqp|wtf|fuck|ppk|vtnc|vsf|(k|c)rl",
+    "fdp|pqp|fuck|ppk|vtnc|vsf|(k|c)rl|bct",
     "f(o|ou)d(endo|id(o|a)(s)?|o|(e|i)(s)?|emo(s)?|ei(s)?|em|ia(s)?|iamo(s)?|iei(s)?|iam|i|este|eu|este(s)?|eram|(e|i)ra(s)?|(e|i)rei(s)?|(e|i)r(e|a)mo(s)?|(e|i)rao|(e|i)ria(s)?|(e|i)riamo(s)?|(e|i)riei(s)?|(e|i)riam|a(s)?|amo(s)?|ai(s)?|am|(e|i)(s|c)e(s)?|(e|i)(s|c)emo(s)?|(e|i)(s|c)ei(s)?|(e|i)(s|c)em|er|ere(s)?|ermo(s)?|erdes|erem|amo|ermo(s)?|inha|ona|ao|astic(o|a))",
     "fud(endo|id(o|a)(s)?|emo(s)?|ei(s)?|ia(s)?|iamo(s)?|iei(s)?|iam|i|este|eu|este(s)?|eram|(e|i)ra(s)?|(e|i)rei(s)?|(e|i)r(e|a)mo(s)?|(e|i)rao|(e|i)ria(s)?|(e|i)riamo(s)?|(e|i)riei(s)?|(e|i)riam|(e|i)(s|c)e(s)?|(e|i)(s|c)emo(s)?|(e|i)(s|c)ei(s)?|(e|i)(s|c)em|er|ere(s)?|ermo(s)?|erdes|erem|amo|ermo(s)?|inha|ona|ao|astic(o|a))",
     "merd(a(zinha)?|inha|ona|ao)",
