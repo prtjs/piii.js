@@ -437,9 +437,8 @@ module.exports = function (string, censura) {
 };
 },{"./words.json":4,"diacritics":1,"repeat-string":2}],4:[function(require,module,exports){
 module.exports=[
-    "(c|k)(u|uh|u(z|s)inho|uzao|uzona)",
-    "(c|k)ara(lh|i)(o((z|s)inho|(z|s)ao)?|inho((z|s)inho)?|ao|ada|ud(o|a))",
-    "(c|k)arai(o((z|s)inho|(z|s)ao)?|nho((z|s)inho)?|ao|ada)",
+    "(c|k)(u|uh|u(z|s)inho(((z|s)inho)+)?|u(zao)+(((z|s)inho)+)?|uzona(((z|s)inha)+)?)",
+    "(c|k)ara(((((lh|i)(o|a))|((lh|i)(ada|ao|ona|udo)((da|ao|na|do)+)?)+)(((z|s)inh(o|a))+)?)|(i|(lhi|i)(m|n|nh(o|a))))",
     "(pepe|pp)((k|c)(a((z|s)inha)?|ao|ona)|(qu|k)inha)",
     "b(u|o)cet(a((z|s)ona|(z|s)inha)?|inha((z|s)inha)?|ona|ao|ud(a|o))",
     "bilau((z|s)inho|zao)?",

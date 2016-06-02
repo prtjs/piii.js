@@ -10,20 +10,19 @@
 ## Exemplos
 
 ```js
-piii('Vá tomar no cú!', '(piii)'); // retorna 'Vá tomar no (piii)!'
-piii('Vá se ⓕⓞⓓⓔⓡ!', '(piii)'); // retorna 'Vá se (piii)!'
-piii('Que porrrrra é essa?', '(piii)'); // retorna 'Que (piii) é essa?'
-piii('Que m3rd4!', '(piii)'); // retorna 'Que (piii)!'
-piii('PQP', '(piii)'); // retorna '(piii)'
-piii('Filho da ᵽṻțặ!', '(piii)'); // retorna 'Filho da (piii)!'
+piii('Vá tomar no cú!'); // retorna 'Vá tomar no **!'
+piii('Vá se ⓕⓞⓓⓔⓡ!'); // retorna 'Vá se *****!'
+piii('Que m3rd4!'); // retorna 'Que ****!'
+piii('Seu fdp!'); // retorna 'Seu ***!'
+piii('Cúzãozãozão'); // retorna '***********'
+piii('Filho da ᵽṻțặ!'); // retorna 'Filho da ****!'
+piii('Que porrrrra é essa?'); // retorna 'Que ******** é essa?'
 ```
 
-Também é possível modificar o palavrão filtrado antes de substitui-lo, veja:
+Você também pode escolher o caractere que substituirá cada letra do palavrão:
 
-```js
-piii('Vá se foder!', function (palavrao) {
-    return palavrao.charAt(0) + '*'.repeat(palavrao.length - 1);
-}); // retorna 'Vá se f****!'
+```
+piii('Vá se foder!', 'π'); // retorna 'Vá se πππππ!'
 ```
 
 ## Licença
