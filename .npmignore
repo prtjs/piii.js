@@ -1,2 +1,4 @@
+.gitignore
+.editorconfig
 bower.json
 dist/piii.js
