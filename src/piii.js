@@ -23,6 +23,10 @@ var re = new RegExp('\\b((' + j + '))\\b', 'gi');
 
 module.exports = function (string, censura) {
 
+    if (!string && !censura) {
+      return undefined;
+    }
+
     if (censura) {
         if (censura.length !== 1) {
             censura = '*';            
