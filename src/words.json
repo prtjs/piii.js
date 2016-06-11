@@ -13,7 +13,7 @@
     "pi(c|s)(a((z|s)inha)?|inha|ona|ao)",
     "pint(o((z|s)inho|zao)?|inho|ao)",
     "piro((c|k)(a((z|s)inha)?|o|ona|ao)|(qu|k)inha)",
-    "po(rr|h)(a|inha((z|s)inha)?|ona|ao)",
+    "((e)?(s|t)a)?po(rr|h)(a|inha(((z|s)inha)+)?|(ona)+(((z|s)inha)+)?|(ao)+)",
     "put(a|inha|o|ona|ao)",
     "rol(a|o)(((z|s)inha)?|ao|inha|na)",
     "tob(a((z|s)inho)?|inha|ao|ona)",
