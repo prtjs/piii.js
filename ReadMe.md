@@ -1,4 +1,4 @@
-# Piii.js
+# piii.js [![Build Status](https://travis-ci.org/theuves/piii.js.svg?branch=master)](https://travis-ci.org/theuves/piii.js)
 
 > Um filtro de palavrões da língua portuguesa.
 
