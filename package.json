@@ -8,9 +8,11 @@
     "diacritics": "^1.2.3"
   },
   "devDependencies": {
+    "ava": "^0.15.2",
     "browserify": "^13.0.1"
   },
   "scripts": {
+    "test": "ava",
     "build": "browserify src/piii.js -s piii -o dist/piii.js"
   },
   "repository": {
