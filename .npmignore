@@ -1,4 +1,6 @@
-.gitignore
 .editorconfig
+.gitignore
+.travis.yml
 bower.json
+test.js
 dist/piii.js
