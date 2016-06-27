@@ -409,6 +409,10 @@ var re = new RegExp('\\b((' + j + '))\\b', 'gi');
 
 module.exports = function (string, censura) {
 
+    if (!string && !censura) {
+      return undefined;
+    }
+
     if (censura) {
         if (censura.length !== 1) {
             censura = '*';            
@@ -435,6 +439,7 @@ module.exports = function (string, censura) {
 
     return s;
 };
+
 },{"./words.json":4,"diacritics":1,"repeat-string":2}],4:[function(require,module,exports){
 module.exports=[
     "(c|k)(u|uh|u(z|s)inho(((z|s)inho)+)?|u(zao)+(((z|s)inho)+)?|uzona(((z|s)inha)+)?)",
@@ -451,11 +456,12 @@ module.exports=[
     "pi(c|s)(a((z|s)inha)?|inha|ona|ao)",
     "pint(o((z|s)inho|zao)?|inho|ao)",
     "piro((c|k)(a((z|s)inha)?|o|ona|ao)|(qu|k)inha)",
-    "po(rr|h)(a|inha((z|s)inha)?|ona|ao)",
+    "((e)?(s|t)a)?po(rr|h)(a|inha(((z|s)inha)+)?|(ona)+(((z|s)inha)+)?|(ao)+)",
     "put(a|inha|o|ona|ao)",
     "rol(a|o)(((z|s)inha)?|ao|inha|na)",
     "tob(a((z|s)inho)?|inha|ao|ona)",
     "v(i|e)ad(o(zinho)?|inho|ao)"
 ]
+
 },{}]},{},[3])(3)
 });
