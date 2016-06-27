@@ -12,7 +12,7 @@
 ```js
 piii('Vá tomar no cú!'); // retorna 'Vá tomar no **!'
 piii('Vá se ⓕⓞⓓⓔⓡ!'); // retorna 'Vá se *****!'
-piii('Que m3rd4!'); // retorna 'Que ****!'
+piii('Que m3rd4!'); // retorna 'Que *****!'
 piii('Seu fdp!'); // retorna 'Seu ***!'
 piii('Cúzãozãozão'); // retorna '***********'
 piii('Filho da ᵽṻțặ!'); // retorna 'Filho da ****!'
