@@ -1,6 +1,6 @@
 {
   "name": "piii",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Um filtro de palavrões da língua portuguesa.",
   "main": "src/piii.js",
   "dependencies": {
