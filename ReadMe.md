@@ -13,7 +13,7 @@
 
 ## Instalação
 
-Instale-o com [`npm`](https://www.npmjs.com/): `npm i piii` ou com [`bower`](https://bower.io/): `bower i piii.js`.
+Instale-o com [`npm`](https://www.npmjs.com/), `npm i piii` ou com [`bower`](https://bower.io/), `bower i piii.js`.
 
 ## Exemplos
 
