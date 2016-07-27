@@ -32,7 +32,7 @@ piii('Que porrrrra é essa?'); // retorna 'Que ******** é essa?'
 
 Você também pode escolher o caractere que substituirá cada letra do palavrão:
 
-```
+```js
 piii('Vá se foder!', 'π'); // retorna 'Vá se πππππ!'
 ```
 
