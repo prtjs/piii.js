@@ -17,6 +17,8 @@ Instale-o com [`npm`](https://www.npmjs.com/), `npm i piii` ou com [`bower`](htt
 
 ## Exemplos
 
+Veja alguns exemplos abaixo com diferentes tentativas de burlá-lo.
+
 ```js
 piii('Vá tomar no cú!'); // retorna 'Vá tomar no **!'
 piii('Vá se ⓕⓞⓓⓔⓡ!'); // retorna 'Vá se *****!'
