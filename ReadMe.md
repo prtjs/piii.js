@@ -7,9 +7,10 @@
 
 ## Caracteristicas
 
- - ignora o uso de qualquer tipo acentuação
- - ignora se o texto está em caixa alta ou baixa
- - ignora letras repetidas
+- ignora o uso de qualquer tipo acentuação
+- ignora se o texto está em caixa alta ou baixa
+- ignora números que possam substituir letras
+- ignora letras repetidas
 
 ## Instalação
 
