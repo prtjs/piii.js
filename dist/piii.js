@@ -407,34 +407,81 @@ var j = words.join(')|(')
 
 var re = new RegExp('\\b((' + j + '))\\b', 'gi');
 
-module.exports = function (string, censura) {
+function replaceWords(original, censurado, censura) {
+    var coords = [];
+    var iniciado = false;
+
+    for (var i = 0; i < original.length; i++) {
+        if (censurado[i] === original[i] && !iniciado) {
+            coords.push(i);
+
+            iniciado = true;
+        } else {
+            if (censurado[i] !== original[i] && iniciado) {
+                coords.push(i);
+
+                iniciado = false;
+            }
+        }
+    }
+
+    if (coords.length % 2 !== 0) coords.push(original.length);
+
+    var partes = [];
+
+    if (censurado[0] !== original[0]) partes.push('');
+
+    for (var i = 0; i < coords.length; i += 2) {
+        partes.push(censurado.substring(coords[i], coords[i + 1]));
+    }
+
+    var ultimo = original.length - 1;
+
+    if (censurado[ultimo] !== original[ultimo]) {
+        partes.push('');
+    }
+
+    return partes.join(censura);
+}
+
+module.exports = function (string, censura, completo) {
 
     if (!string && !censura) {
       return undefined;
     }
 
+    var cens;
+
     if (censura) {
-        if (censura.length !== 1) {
-            censura = '*';            
+        if (completo) {
+            cens = '*'
+        } else if (censura.length === 1) {
+            cens = censura;
+        } else {
+            cens = '*';
         }
     } else {
-        censura = '*';
+        cens = '*';
     }
 
     var str = diacritics(string);
 
     str = str.replace(re, function (p) {
-        return repeat(censura, p.length);
+        return repeat(cens, p.length);
     });
 
     var s = '';
 
     for (var i = 0; i < string.length; i++) {
-        if (string[i] !== str[i] && str[i] === censura) {
+        if (string[i] !== str[i] && str[i] === cens) {
             s += str[i];
         } else {
             s += string[i]
         }
+    }
+
+    if (completo) {
+        return replaceWords(string, s, censura);
     }
 
     return s;
