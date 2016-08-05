@@ -69,12 +69,10 @@ module.exports = function (string, censura, completo) {
     if (censura) {
         if (completo) {
             cens = '*'
+        } else if (censura.length === 1) {
+            cens = censura;
         } else {
-            if (censura.length === 1) {
-                cens = censura;
-            } else {
-                cens = '*';
-            }
+            cens = '*';
         }
     } else {
         cens = '*';
