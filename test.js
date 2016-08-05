@@ -10,4 +10,5 @@ test('piii', t => {
     t.is(piii('Filho da ᵽṻțặ!'), 'Filho da ****!');
     t.is(piii('Que porrrrra é essa?'), 'Que ******** é essa?');
     t.is(piii('Vá se foder!', 'π'), 'Vá se πππππ!');
+    t.is(piii('Vá se foder!', '(piii)', true), 'Vá se (piii)!');
 });
