@@ -1,7 +1,7 @@
 # Piii.js
 
 [![Build Status](https://travis-ci.org/theuves/piii.js.svg?branch=master)](https://travis-ci.org/theuves/piii.js)
-[![Version](https://img.shields.io/badge/version-2.1.0-blue.svg)](https://github.com/theuves/piii.js/tree/2.1.0)
+[![npm version](https://badge.fury.io/js/piii.svg)](https://badge.fury.io/js/piii)
 
 > Um avançado filtro de palavrões.
 
