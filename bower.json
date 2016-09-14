@@ -5,7 +5,7 @@
   "main": "dist/piii.js",
   "ignore": [
     ".npmignore",
-    "package.json"
+    "package.json",
     "src/piii.js",
     "src/words.json"
   ],
