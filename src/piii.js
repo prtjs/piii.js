@@ -90,7 +90,7 @@ module.exports = function (string, censura, completo) {
         if (string[i] !== str[i] && str[i] === cens) {
             s += str[i];
         } else {
-            s += string[i]
+            s += string[i];
         }
     }
 
