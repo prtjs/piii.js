@@ -7,10 +7,10 @@
 
 ## Caracteristicas
 
-- ignora o uso de qualquer tipo acentuação
-- ignora se as palavras estão em caixa alta ou baixa
-- ignora números que possam substituir letras
-- ignora letras repetidas
+* ignora o uso de qualquer tipo acentuação
+* ignora se as palavras estão em caixa alta ou baixa
+* ignora números que possam substituir letras
+* ignora letras repetidas
 
 É filtrado apenas palavras que são impróprias, ofensivas, agressivas ou obsenas sob o ponto de vista geral da sociedade. Palavras que não são consideradas impróprias por todos (como "merda" que não é vista por todos como de baixo calão) ou que possuem um duplo sentido junto a uma palavra comum (como "cacete" ou "pau") não serão filtradas. Porém será possível adicionar mais palavras ao filtro (você verá como mais abaixo).
 
@@ -25,7 +25,6 @@ Veja alguns exemplos abaixo com diferentes tentativas de burlá-lo.
 ```js
 piii('Vá tomar no cú!'); // retorna 'Vá tomar no **!'
 piii('Vá se ⓕⓞⓓⓔⓡ!'); // retorna 'Vá se *****!'
-piii('Que m3rd4!'); // retorna 'Que *****!'
 piii('Seu fdp!'); // retorna 'Seu ***!'
 piii('Cúzãozãozão'); // retorna '***********'
 piii('Filho da ᵽṻțặ!'); // retorna 'Filho da ****!'
@@ -35,7 +34,7 @@ piii('Que porrrrra é essa?'); // retorna 'Que ******** é essa?'
 Você também pode escolher o caractere que substituirá cada letra do palavrão:
 
 ```js
-piii('Vá se foder!', 'π'); // retorna 'Vá se πππππ!'
+piii('Vá se foder!', {censura: 'π'}); // retorna 'Vá se πππππ!'
 ```
 
 Por padrão as letras são subtituidas pelo caractere `*`. Observe que a *string* informada para substituir as letras deve conter apenas
@@ -43,8 +42,23 @@ um caractere, caso contrário elas serão substituidas pelo caractere padrão, `
 uma sequencia de caracteres, você pode fazer como no exemplo abaixo:
 
 ```js
-piii('Vá se foder!', '(piii)', true); // retorna 'Vá se (piii)!'
+piii('Vá se foder!', {censura: '(piii)', completo: true}); // 'Vá se (piii)!'
 ```
+
+Você também poderá adicionar mais palavrões ao filtro, veja o exemplo:
+
+```js
+piii('Que cacete! Seu merdinha!', {
+    censura: '(piii)',
+    completo: true,
+    extras: [
+        '(c|k)acet(e|i|inho|ão)',
+        'mi?erd(a|inha|ona|ão|a(d|c)a)'
+    ]
+}); // isso retornará 'Que (piii)! Seu (piii)!'
+```
+
+Onde `extras` deverá ser um *array* contendo os palavrões dentro de uma cadeia de caracteres, podendo usar expressões regulares e **não** havendo a necessidade de passar caracteres acentuados, por exemplo, ao invés de usar `merdão` (com acento), você pode simplesmente usar `merdao`, pois todos os acentos, caracteres repetidos ou números que possam substituir letras serão ignorados.
 
 ## Autor
 
