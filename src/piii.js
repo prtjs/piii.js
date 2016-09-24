@@ -4,22 +4,24 @@ var diacritics = require('diacritics').remove,
     repeat = require('repeat-string'),
     words = require('./words.json');
 
-for (var i in words) {
-    words[i] = words[i].replace(/(\w)/g, '$1+');
+function criarRe(novos) {
+    for (var i in novos) {
+        novos[i] = novos[i].replace(/(\w)/g, '$1+');
+    }
+
+    var j = novos.join(')|(')
+        .replace(/a/g, '[a24\@]')
+        .replace(/e/g, '[e3\&]')
+        .replace(/g/g, '[g9')
+        .replace(/i/g, '[i1]')
+        .replace(/l/g, '[l1]')
+        .replace(/o/g, '[o08\@]')
+        .replace(/q/g, '[q9]')
+        .replace(/t/g, '[t7]')
+        .replace(/s/g, '[s5\$]');
+
+    return new RegExp('\\b((' + j + '))\\b', 'gi');
 }
-
-var j = words.join(')|(')
-    .replace(/a/g, '[a24\@]')
-    .replace(/e/g, '[e3\&]')
-    .replace(/g/g, '[g9')
-    .replace(/i/g, '[i1]')
-    .replace(/l/g, '[l1]')
-    .replace(/o/g, '[o08\@]')
-    .replace(/q/g, '[q9]')
-    .replace(/t/g, '[t7]')
-    .replace(/s/g, '[s5\$]');
-
-var re = new RegExp('\\b((' + j + '))\\b', 'gi');
 
 function replaceWords(original, censurado, censura) {
     var coords = [];
@@ -58,10 +60,44 @@ function replaceWords(original, censurado, censura) {
     return partes.join(censura);
 }
 
-module.exports = function (string, censura, completo) {
+module.exports = function (string, options) {
 
-    if (!string && !censura) {
+    if (!string && !options) {
       return undefined;
+    }
+
+    options = options || {};
+
+    var censura = options.censura;
+
+    if (censura && typeof censura !== 'string') {
+        return undefined;
+    }
+
+    var completo = options.completo;
+
+    if (completo && typeof completo !== 'boolean') {
+        return undefined;
+    }
+
+    var extras = options.extras;
+
+    if (extras && !Array.isArray(extras)) {
+        return undefined;
+    }
+
+    if (extras) {
+        var temp = [];
+
+        extras.forEach(function (palavra) {
+            if (palavra && palavra.toString()) {
+                temp.push(diacritics(palavra.toString()));
+            }
+        });
+
+        extras = temp;
+    } else {
+        extras = [];
     }
 
     var cens;
@@ -79,6 +115,8 @@ module.exports = function (string, censura, completo) {
     }
 
     var str = diacritics(string);
+
+    var re = criarRe(words.concat(extras));
 
     str = str.replace(re, function (p) {
         return repeat(cens, p.length);
