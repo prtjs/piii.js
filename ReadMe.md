@@ -8,9 +8,11 @@
 ## Caracteristicas
 
 - ignora o uso de qualquer tipo acentuação
-- ignora se o texto está em caixa alta ou baixa
+- ignora se as palavras estão em caixa alta ou baixa
 - ignora números que possam substituir letras
 - ignora letras repetidas
+
+É filtrado apenas palavras que são impróprias, ofensivas, agressivas ou obsenas sob o ponto de vista geral da sociedade. Palavras que não são consideradas impróprias por todos (como "merda" que não é vista por todos como de baixo calão) ou que possuem um duplo sentido junto a uma palavra comum (como "cacete" ou "pau") não serão filtradas. Porém será possível adicionar mais palavras ao filtro (você verá como mais abaixo).
 
 ## Instalação
 
