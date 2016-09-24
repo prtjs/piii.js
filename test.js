@@ -8,6 +8,19 @@ test('piii', t => {
     t.is(piii('Cúzãozãozão'), '***********');
     t.is(piii('Filho da ᵽṻțặ!'), 'Filho da ****!');
     t.is(piii('Que porrrrra é essa?'), 'Que ******** é essa?');
-    t.is(piii('Vá se foder!', 'π'), 'Vá se πππππ!');
-    t.is(piii('Vá se foder!', '(piii)', true), 'Vá se (piii)!');
+    t.is(piii('Vá se foder!', {
+        censura: 'π'
+    }), 'Vá se πππππ!');
+    t.is(piii('Vá se foder!', {
+        censura: '(piii)',
+        completo: true
+    }), 'Vá se (piii)!');
+    t.is(piii('Que cacete! Seu merdinha!', {
+        censura: '(piii)',
+        completo: true,
+        extras: [
+            '(c|k)acet(e|i|inho|ão)',
+            'mi?erd(a|inha|ona|ão|a(d|c)a)'
+        ]
+    }), 'Que (piii)! Seu (piii)!');
 });
