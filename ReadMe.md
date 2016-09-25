@@ -48,12 +48,12 @@ piii('Vá se foder!', {censura: '(piii)', completo: true}); // 'Vá se (piii)!'
 Você também poderá adicionar mais palavrões ao filtro, veja o exemplo:
 
 ```js
-piii('Que cacete! Seu merdinha!', {
+piii('Que cacete! Seu m3rdinha!', {
     censura: '(piii)',
     completo: true,
     extras: [
-        '(c|k)acet(e|i|inho|ão)',
-        'mi?erd(a|inha|ona|ão|a(d|c)a)'
+        '(c|k)acet(e|i|inho|ao)',
+        'merd(a|inha|ona|ao|a(d|c)a)'
     ]
 }); // isto retornará 'Que (piii)! Seu (piii)!'
 ```
