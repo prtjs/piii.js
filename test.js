@@ -20,7 +20,7 @@ test('piii', t => {
         completo: true,
         extras: [
             '(c|k)acet(e|i|inho|ão)',
-            'mi?erd(a|inha|ona|ão|a(d|c)a)'
+            'merd(a|inha|ona|ao|a(d|c)a)'
         ]
     }), 'Que (piii)! Seu (piii)!');
 });
