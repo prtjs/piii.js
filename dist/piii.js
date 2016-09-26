@@ -390,22 +390,24 @@ var diacritics = require('diacritics').remove,
     repeat = require('repeat-string'),
     words = require('./words.json');
 
-for (var i in words) {
-    words[i] = words[i].replace(/(\w)/g, '$1+');
+function criarRe(novos) {
+    for (var i in novos) {
+        novos[i] = novos[i].replace(/(\w)/g, '$1+');
+    }
+
+    var j = novos.join(')|(')
+        .replace(/a/g, '[a24\@]')
+        .replace(/e/g, '[e3\&]')
+        .replace(/g/g, '[g9')
+        .replace(/i/g, '[i1]')
+        .replace(/l/g, '[l1]')
+        .replace(/o/g, '[o08\@]')
+        .replace(/q/g, '[q9]')
+        .replace(/t/g, '[t7]')
+        .replace(/s/g, '[s5\$]');
+
+    return new RegExp('\\b((' + j + '))\\b', 'gi');
 }
-
-var j = words.join(')|(')
-    .replace(/a/g, '[a24\@]')
-    .replace(/e/g, '[e3\&]')
-    .replace(/g/g, '[g9')
-    .replace(/i/g, '[i1]')
-    .replace(/l/g, '[l1]')
-    .replace(/o/g, '[o08\@]')
-    .replace(/q/g, '[q9]')
-    .replace(/t/g, '[t7]')
-    .replace(/s/g, '[s5\$]');
-
-var re = new RegExp('\\b((' + j + '))\\b', 'gi');
 
 function replaceWords(original, censurado, censura) {
     var coords = [];
@@ -444,17 +446,51 @@ function replaceWords(original, censurado, censura) {
     return partes.join(censura);
 }
 
-module.exports = function (string, censura, completo) {
+module.exports = function (string, options) {
 
-    if (!string && !censura) {
+    if (!string && !options) {
       return undefined;
+    }
+
+    options = options || {};
+
+    var censura = options.censura;
+
+    if (censura && typeof censura !== 'string') {
+        return undefined;
+    }
+
+    var completo = options.completo;
+
+    if (completo && typeof completo !== 'boolean') {
+        return undefined;
+    }
+
+    var extras = options.extras;
+
+    if (extras && !Array.isArray(extras)) {
+        return undefined;
+    }
+
+    if (extras) {
+        var temp = [];
+
+        extras.forEach(function (palavra) {
+            if (palavra && palavra.toString()) {
+                temp.push(diacritics(palavra.toString()));
+            }
+        });
+
+        extras = temp;
+    } else {
+        extras = [];
     }
 
     var cens;
 
     if (censura) {
         if (completo) {
-            cens = '*'
+            cens = '*';
         } else if (censura.length === 1) {
             cens = censura;
         } else {
@@ -466,6 +502,8 @@ module.exports = function (string, censura, completo) {
 
     var str = diacritics(string);
 
+    var re = criarRe(words.concat(extras));
+
     str = str.replace(re, function (p) {
         return repeat(cens, p.length);
     });
@@ -476,7 +514,7 @@ module.exports = function (string, censura, completo) {
         if (string[i] !== str[i] && str[i] === cens) {
             s += str[i];
         } else {
-            s += string[i]
+            s += string[i];
         }
     }
 
@@ -492,22 +530,17 @@ module.exports=[
     "(c|k)(u|uh|u(z|s)inho(((z|s)inho)+)?|u(zao)+(((z|s)inho)+)?|uzona(((z|s)inha)+)?)",
     "(c|k)ara(lh|i)(o((z|s)inho|(z|s)ao)?|inho((z|s)inho)?|ao|ada|ud(o|a))",
     "(c|k)arai(o((z|s)inho|(z|s)ao)?|nho((z|s)inho)?|ao|ada)",
-    "(pepe|pp)((k|c)(a((z|s)inha)?|ao|ona)|(qu|k)inha)",
+    "(pe?pe?)((k|c)(a((z|s)inha)?|ao|ona)|(qu|k)inha)",
     "b(u|o)cet(a((z|s)ona|(z|s)inha)?|inha((z|s)inha)?|ona|ao|ud(a|o))",
-    "bilau((z|s)inho|zao)?",
-    "fdp|pqp|fuck|ppk|vtnc|vsf|(k|c)rl|bct",
-    "f(o|ou)d(endo|id(o|a)(s)?|o|(e|i)(s)?|emo(s)?|ei(s)?|em|ia(s)?|iamo(s)?|iei(s)?|iam|i|este|eu|este(s)?|eram|(e|i)ra(s)?|(e|i)rei(s)?|(e|i)r(e|a)mo(s)?|(e|i)rao|(e|i)ria(s)?|(e|i)riamo(s)?|(e|i)riei(s)?|(e|i)riam|a(s)?|amo(s)?|ai(s)?|am|(e|i)(s|c)e(s)?|(e|i)(s|c)emo(s)?|(e|i)(s|c)ei(s)?|(e|i)(s|c)em|er|ere(s)?|ermo(s)?|erdes|erem|amo|ermo(s)?|inha|ona|ao|astic(o|a))",
-    "fud(endo|id(o|a)(s)?|emo(s)?|ei(s)?|ia(s)?|iamo(s)?|iei(s)?|iam|i|este|eu|este(s)?|eram|(e|i)ra(s)?|(e|i)rei(s)?|(e|i)r(e|a)mo(s)?|(e|i)rao|(e|i)ria(s)?|(e|i)riamo(s)?|(e|i)riei(s)?|(e|i)riam|(e|i)(s|c)e(s)?|(e|i)(s|c)emo(s)?|(e|i)(s|c)ei(s)?|(e|i)(s|c)em|er|ere(s)?|ermo(s)?|erdes|erem|amo|ermo(s)?|inha|ona|ao|astic(o|a))",
-    "merd(a(zinha)?|inha|ona|ao)",
+    "b(i|y)lau((z|s)inho|zao)?",
+    "fdp|pqp|fuck|ppk|vtnc|vsf|(k|c)rlh?|bct",
+    "(ph|f)(o|ou)d(endo|id(o|a)(s)?|o|(e|i)(s)?|emo(s)?|ei(s)?|em|ia(s)?|iamo(s)?|iei(s)?|iam|i|este|eu|este(s)?|eram|(e|i)ra(s)?|(e|i)rei(s)?|(e|i)r(e|a)mo(s)?|(e|i)rao|(e|i)ria(s)?|(e|i)riamo(s)?|(e|i)riei(s)?|(e|i)riam|a(s)?|amo(s)?|ai(s)?|am|(e|i)(s|c)e(s)?|(e|i)(s|c)emo(s)?|(e|i)(s|c)ei(s)?|(e|i)(s|c)em|er|ere(s)?|ermo(s)?|erdes|erem|amo|ermo(s)?|inha|ona|ao|astic(o|a))",
+    "(ph|f)ud(endo|id(o|a)(s)?|emo(s)?|ei(s)?|ia(s)?|iamo(s)?|iei(s)?|iam|i|este|eu|este(s)?|eram|(e|i)ra(s)?|(e|i)rei(s)?|(e|i)r(e|a)mo(s)?|(e|i)rao|(e|i)ria(s)?|(e|i)riamo(s)?|(e|i)riei(s)?|(e|i)riam|(e|i)(s|c)e(s)?|(e|i)(s|c)emo(s)?|(e|i)(s|c)ei(s)?|(e|i)(s|c)em|er|ere(s)?|ermo(s)?|erdes|erem|amo|ermo(s)?|inha|ona|ao|astic(o|a))",
     "p(u|o)nhet(a((z|s)inha)?|inha|ao|ona)",
-    "pi(c|s)(a((z|s)inha)?|inha|ona|ao)",
     "pint(o((z|s)inho|zao)?|inho|ao)",
     "piro((c|k)(a((z|s)inha)?|o|ona|ao)|(qu|k)inha)",
-    "((e)?(s|t)a)?po(rr|h)(a|inha(((z|s)inha)+)?|(ona)+(((z|s)inha)+)?|(ao)+)",
-    "put(a|inha|o|ona|ao)",
-    "rol(a|o)(((z|s)inha)?|ao|inha|na)",
-    "tob(a((z|s)inho)?|inha|ao|ona)",
-    "v(i|e)ad(o(zinho)?|inho|ao)"
+    "po(rr|h)(a|inha(((z|s)inha)+)?|(ona)+(((z|s)inha)+)?|(ao)+)",
+    "put(a|inha|o|ona|ao)"
 ]
 
 },{}]},{},[3])(3)
