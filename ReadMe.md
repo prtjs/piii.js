@@ -5,7 +5,7 @@
 
 > Um avançado filtro de palavrões.
 
-## Caracteristicas
+## Características
 
 * ignora o uso de qualquer tipo acentuação
 * ignora se as palavras estão em caixa alta ou baixa
