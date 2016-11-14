@@ -37,7 +37,7 @@ Você também pode escolher o caractere que substituirá cada letra do palavrão
 piii('Vá se foder!', {censura: 'π'}); // retorna 'Vá se πππππ!'
 ```
 
-Por padrão as letras são subtituidas pelo caractere `*`. Observe que a *string* informada para substituir as letras deve conter apenas um caractere, caso contrário elas serão substituidas pelo caractere padrão, `*`. Caso queira substituir todo o palavrão por uma sequencia de caracteres, você pode fazer como no exemplo abaixo:
+Por padrão as letras são substituídas pelo caractere `*`. Observe que a *string* informada para substituir as letras deve conter apenas um caractere, caso contrário elas serão substituidas pelo caractere padrão, `*`. Caso queira substituir todo o palavrão por uma sequencia de caracteres, você pode fazer como no exemplo abaixo:
 
 ```js
 piii('Vá se foder!', {censura: '(piii)', completo: true}); // 'Vá se (piii)!'
