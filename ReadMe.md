@@ -12,7 +12,7 @@
 * ignora números que possam substituir letras
 * ignora letras repetidas
 
-São filtradas apenas palavras impróprias, ofensivas, agressivas ou obsenas sob o ponto de vista geral da sociedade. Palavras que não são consideradas impróprias por todos (como "merda" que pode não ser vista por alguns como de baixo calão) ou que possuam um duplo sentido junto a uma palavra comum (como "cacete" ou "pau") não serão filtradas. Porém, será possível adicionar mais palavras ao filtro (você verá como logo abaixo).
+São filtradas apenas palavras impróprias, ofensivas, agressivas ou obsenas sob o ponto de vista geral da sociedade. Palavras que não são consideradas impróprias por todos (como “merda” que pode não ser vista por alguns como de baixo calão) ou que possuam um duplo sentido junto a uma palavra comum (como “cacete” ou “pau”) não serão filtradas. Porém, será possível adicionar mais palavras ao filtro (você verá como logo abaixo).
 
 ## Instalação
 
