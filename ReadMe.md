@@ -56,7 +56,7 @@ piii('Que cacete! Seu m3rdinha!', {
 }); // isto retornará 'Que (piii)! Seu (piii)!'
 ```
 
-Onde `extras` deverá ser um *array* contendo os palavrões dentro de uma cadeia de caracteres, podendo usar expressões regulares e **não** havendo a necessidade de passar caracteres acentuados, por exemplo, ao invés de usar `merdão` (com acento), você pode simplesmente usar `merdao`, pois todos os acentos, caracteres repetidos ou números que possam substituir letras serão ignorados.
+Onde `extras` deverá ser uma *array* contendo os palavrões dentro de uma cadeia de caracteres, podendo usar expressões regulares e **não** havendo a necessidade de passar caracteres acentuados, por exemplo, ao invés de usar `merdão` (com acento), você pode simplesmente usar `merdao`, pois todos os acentos, caracteres repetidos ou números que possam substituir letras serão ignorados.
 
 ## Autor
 
