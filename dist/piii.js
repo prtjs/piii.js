@@ -314,234 +314,125 @@ function removeDiacritics(str) {
 }
 
 },{}],2:[function(require,module,exports){
-/*!
- * repeat-string <https://github.com/jonschlinkert/repeat-string>
- *
- * Copyright (c) 2014-2015, Jon Schlinkert.
- * Licensed under the MIT License.
- */
-
 'use strict';
 
-/**
- * Results cache
- */
+// importa dependências
+var diacritics = require('diacritics');
+var palavroes = require('./words.js');
 
-var res = '';
-var cache;
+// Piii.js
+module.exports = function (string, options) {
+    if (!string) return;
+    options = options || {};
 
-/**
- * Expose `repeat`
- */
+    var censura = options.censura || '*';
+    var completo = options.completo || false;
+    var extras = options.extras || [];
 
-module.exports = repeat;
+    // transforma todos os valores em string
+    // e remove a acentuação
+    extras = extras.map(function (extra) {
+        return diacritics.remove(extra.toString());
+    });
 
-/**
- * Repeat the given `string` the specified `number`
- * of times.
- *
- * **Example:**
- *
- * ```js
- * var repeat = require('repeat-string');
- * repeat('A', 5);
- * //=> AAAAA
- * ```
- *
- * @param {String} `string` The string to repeat
- * @param {Number} `number` The number of times to repeat the string
- * @return {String} Repeated string
- * @api public
- */
+    var censuraTemp = '*';
 
-function repeat(str, num) {
-  if (typeof str !== 'string') {
-    throw new TypeError('repeat-string expects a string.');
-  }
-
-  // cover common, quick use cases
-  if (num === 1) return str;
-  if (num === 2) return str + str;
-
-  var max = str.length * num;
-  if (cache !== str || typeof cache === 'undefined') {
-    cache = str;
-    res = '';
-  }
-
-  while (max > res.length && num > 0) {
-    if (num & 1) {
-      res += str;
+    if (!completo) {
+        censuraTemp = censura.charAt(0);
     }
 
-    num >>= 1;
-    if (!num) break;
-    str += str;
-  }
+    // string sem acentuação
+    var desacentuado = diacritics.remove(string);
 
-  return res.substr(0, max);
-}
+    // expressão regular para corresponder palavrões
+    var re = palavroes.ignorarLeet(palavroes.lista.concat(extras));
+    re = palavroes.criarRegExp(re);
 
+    // censura todos os palavrões, substituindo cada caractere
+    // do palavrão pelo caractere * (censuraTemp)
+    desacentuado = desacentuado.replace(re, function (correspondido) {
+        return censuraTemp.repeat(correspondido.length);
+    });
 
-},{}],3:[function(require,module,exports){
-'use strict';
+    // nova string censurada
+    var str = '';
 
-var diacritics = require('diacritics').remove,
-    repeat = require('repeat-string'),
-    words = require('./words.json');
+    // navega por cada caractere de `string` e `desacentuado`
+    // esse processo recoloco as acentuações que foram removidas
+    // mais acima, para não haver erro com o "\b" na expressão
+    // regular do javascript
+    for (var i = 0; i < string.length; i++) {
 
-function criarRe(novos) {
-    for (var i in novos) {
-        novos[i] = novos[i].replace(/(\w)/g, '$1+');
-    }
-
-    var j = novos.join(')|(')
-        .replace(/a/g, '[a24\@]')
-        .replace(/e/g, '[e3\&]')
-        .replace(/g/g, '[g9')
-        .replace(/i/g, '[i1]')
-        .replace(/l/g, '[l1]')
-        .replace(/o/g, '[o08\@]')
-        .replace(/q/g, '[q9]')
-        .replace(/t/g, '[t7]')
-        .replace(/s/g, '[s5\$]');
-
-    return new RegExp('\\b((' + j + '))\\b', 'gi');
-}
-
-function replaceWords(original, censurado, censura) {
-    var coords = [];
-    var iniciado = false;
-
-    for (var i = 0; i < original.length; i++) {
-        if (censurado[i] === original[i] && !iniciado) {
-            coords.push(i);
-
-            iniciado = true;
+        // se o caractere for um caractere censurado, ele será
+        // adicionado em `str`
+        if (string[i] !== desacentuado[i] && desacentuado[i] === censuraTemp) {
+            str += desacentuado[i];
         } else {
-            if (censurado[i] !== original[i] && iniciado) {
-                coords.push(i);
 
-                iniciado = false;
-            }
+            // caso contrário, o caracter original
+            // (que pode ter acentos) será adicionado
+            str += string[i];
         }
     }
 
-    if (coords.length % 2 !== 0) coords.push(original.length);
+    // se for para censurar por uma sequência de caracteres
+    if (completo) {
+        var novaString = ''; // nova string censurada
+        var tmpCensurado = false; // temp
 
-    var partes = [];
+        // navega por cada caractere da string original
+        string.split('').forEach(function (char, index) {
 
-    if (censurado[0] !== original[0]) partes.push('');
-
-    for (var i = 0; i < coords.length; i += 2) {
-        partes.push(censurado.substring(coords[i], coords[i + 1]));
-    }
-
-    var ultimo = original.length - 1;
-
-    if (censurado[ultimo] !== original[ultimo]) {
-        partes.push('');
-    }
-
-    return partes.join(censura);
-}
-
-module.exports = function (string, options) {
-
-    if (!string && !options) {
-      return undefined;
-    }
-
-    options = options || {};
-
-    var censura = options.censura;
-
-    if (censura && typeof censura !== 'string') {
-        return undefined;
-    }
-
-    var completo = options.completo;
-
-    if (completo && typeof completo !== 'boolean') {
-        return undefined;
-    }
-
-    var extras = options.extras;
-
-    if (extras && !Array.isArray(extras)) {
-        return undefined;
-    }
-
-    if (extras) {
-        var temp = [];
-
-        extras.forEach(function (palavra) {
-            if (palavra && palavra.toString()) {
-                temp.push(diacritics(palavra.toString()));
+            // @,@
+            if (char === str[index]) {
+                novaString += char;
+                tmpCensurado = false;
+            } else if (tmpCensurado === false) {
+                novaString += censura;
+                tmpCensurado = true;
             }
         });
 
-        extras = temp;
-    } else {
-        extras = [];
+        return novaString;
     }
 
-    var cens;
-
-    if (censura) {
-        if (completo) {
-            cens = '*';
-        } else if (censura.length === 1) {
-            cens = censura;
-        } else {
-            cens = '*';
-        }
-    } else {
-        cens = '*';
-    }
-
-    var str = diacritics(string);
-
-    var re = criarRe(words.concat(extras));
-
-    str = str.replace(re, function (p) {
-        return repeat(cens, p.length);
-    });
-
-    var s = '';
-
-    for (var i = 0; i < string.length; i++) {
-        if (string[i] !== str[i] && str[i] === cens) {
-            s += str[i];
-        } else {
-            s += string[i];
-        }
-    }
-
-    if (completo) {
-        return replaceWords(string, s, censura);
-    }
-
-    return s;
+    // senão
+    return str;
 };
 
-},{"./words.json":4,"diacritics":1,"repeat-string":2}],4:[function(require,module,exports){
-module.exports=[
-    "(c|k)(u|uh|u(z|s)inho(((z|s)inho)+)?|u(zao)+(((z|s)inho)+)?|uzona(((z|s)inha)+)?)",
-    "(c|k)ara(lh|i)(o((z|s)inho|(z|s)ao)?|inho((z|s)inho)?|ao|ada|ud(o|a))",
-    "(c|k)arai(o((z|s)inho|(z|s)ao)?|nho((z|s)inho)?|ao|ada)",
-    "(pe?pe?)((k|c)(a((z|s)inha)?|ao|ona)|(qu|k)inha)",
-    "b(u|o)cet(a((z|s)ona|(z|s)inha)?|inha((z|s)inha)?|ona|ao|ud(a|o))",
-    "b(i|y)lau((z|s)inho|zao)?",
-    "fdp|pqp|fuck|ppk|vtnc|vsf|(k|c)rlh?|bct",
-    "(ph|f)(o|ou)d(endo|id(o|a)(s)?|o|(e|i)(s)?|emo(s)?|ei(s)?|em|ia(s)?|iamo(s)?|iei(s)?|iam|i|este|eu|este(s)?|eram|(e|i)ra(s)?|(e|i)rei(s)?|(e|i)r(e|a)mo(s)?|(e|i)rao|(e|i)ria(s)?|(e|i)riamo(s)?|(e|i)riei(s)?|(e|i)riam|a(s)?|amo(s)?|ai(s)?|am|(e|i)(s|c)e(s)?|(e|i)(s|c)emo(s)?|(e|i)(s|c)ei(s)?|(e|i)(s|c)em|er|ere(s)?|ermo(s)?|erdes|erem|amo|ermo(s)?|inha|ona|ao|astic(o|a))",
-    "(ph|f)ud(endo|id(o|a)(s)?|emo(s)?|ei(s)?|ia(s)?|iamo(s)?|iei(s)?|iam|i|este|eu|este(s)?|eram|(e|i)ra(s)?|(e|i)rei(s)?|(e|i)r(e|a)mo(s)?|(e|i)rao|(e|i)ria(s)?|(e|i)riamo(s)?|(e|i)riei(s)?|(e|i)riam|(e|i)(s|c)e(s)?|(e|i)(s|c)emo(s)?|(e|i)(s|c)ei(s)?|(e|i)(s|c)em|er|ere(s)?|ermo(s)?|erdes|erem|amo|ermo(s)?|inha|ona|ao|astic(o|a))",
-    "p(u|o)nhet(a((z|s)inha)?|inha|ao|ona)",
-    "pint(o((z|s)inho|zao)?|inho|ao)",
-    "piro((c|k)(a((z|s)inha)?|o|ona|ao)|(qu|k)inha)",
-    "po(rr|h)(a|inha(((z|s)inha)+)?|(ona)+(((z|s)inha)+)?|(ao)+)",
-    "put(a|inha|o|ona|ao)"
-]
+},{"./words.js":3,"diacritics":1}],3:[function(require,module,exports){
+module.exports = {
 
-},{}]},{},[3])(3)
+    // lista semi-pronta de expressões regulares para corresponder palavrões
+    lista: [
+        '(c|k)(u|uh|u(z|s)inho(((z|s)inho)+)?|u(zao)+(((z|s)inho)+)?|uzona(((z|s)inha)+)?)',
+        '(c|k)ara(l(h|e|i)|i)(o((z|s)inho|(z|s)ao)?|inho((z|s)inho)?|ao|ada|ud(o|a))',
+        '(c|k)arai(o((z|s)inho|(z|s)ao)?|nho((z|s)inho)?|ao|ada)',
+        '(pe?pe?)((k|c)(a((z|s)inha)?|ao|ona)|(qu|k)inha)',
+        'b(u|o)cet(a((z|s)ona|(z|s)inha)?|inha((z|s)inha)?|ona|ao|ud(a|o))',
+        'b(i|y)lau((z|s)inho|zao)?',
+        'fdp|pqp|fuck|ppk|vtnc|vsf|(k|c)rlh?|bct',
+        '(ph|f)(o|ou)d(endo|id(o|a)(s)?|o|(e|i)(s)?|emo(s)?|ei(s)?|em|ia(s)?|iamo(s)?|iei(s)?|iam|i|este|eu|este(s)?|eram|(e|i)ra(s)?|(e|i)rei(s)?|(e|i)r(e|a)mo(s)?|(e|i)rao|(e|i)ria(s)?|(e|i)riamo(s)?|(e|i)riei(s)?|(e|i)riam|a(s)?|amo(s)?|ai(s)?|am|(e|i)(s|c)e(s)?|(e|i)(s|c)emo(s)?|(e|i)(s|c)ei(s)?|(e|i)(s|c)em|er|ere(s)?|ermo(s)?|erdes|erem|amo|ermo(s)?|inha|ona|ao|astic(o|a))',
+        '(ph|f)ud(endo|id(o|a)(s)?|emo(s)?|ei(s)?|ia(s)?|iamo(s)?|iei(s)?|iam|i|este|eu|este(s)?|eram|(e|i)ra(s)?|(e|i)rei(s)?|(e|i)r(e|a)mo(s)?|(e|i)rao|(e|i)ria(s)?|(e|i)riamo(s)?|(e|i)riei(s)?|(e|i)riam|(e|i)(s|c)e(s)?|(e|i)(s|c)emo(s)?|(e|i)(s|c)ei(s)?|(e|i)(s|c)em|er|ere(s)?|ermo(s)?|erdes|erem|amo|ermo(s)?|inha|ona|ao|astic(o|a))',
+        'p(u|o)nhet(a((z|s)inha)?|inha|ao|ona)',
+        'pint(o((z|s)inho|zao)?|inho|ao)',
+        'piro((c|k)(a((z|s)inha)?|o|ona|ao)|(qu|k)inha)',
+        'po(rr|h)(a|inha(((z|s)inha)+)?|(ona)+(((z|s)inha)+)?|(ao)+)',
+        'put(a|inha|o|ona|ao)'
+    ],
+
+    // funcão para ignorar números que possam substituir letras
+    ignorarLeet: function (lista) {
+        return lista.map(function (array) {
+            return array.replace(/(\w)/g, '$1+').replace(/a/g, '[a24\@]').replace(/e/g, '[e3\&]').replace(/g/g, '[g9').replace(/i/g, '[i1]').replace(/l/g, '[l1]').replace(/o/g, '[o08\@]').replace(/q/g, '[q9]').replace(/t/g, '[t7]').replace(/s/g, '[s5\$]');;
+        });
+    },
+
+    // transformar array em expressão regular
+    criarRegExp: function (lista) {
+        return new RegExp('\\b((' + lista.join(')|(') + '))\\b', 'gi');
+    }
+};
+
+},{}]},{},[2])(2)
 });
