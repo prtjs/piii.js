@@ -314,11 +314,84 @@ function removeDiacritics(str) {
 }
 
 },{}],2:[function(require,module,exports){
+/*!
+ * repeat-string <https://github.com/jonschlinkert/repeat-string>
+ *
+ * Copyright (c) 2014-2015, Jon Schlinkert.
+ * Licensed under the MIT License.
+ */
+
+'use strict';
+
+/**
+ * Results cache
+ */
+
+var res = '';
+var cache;
+
+/**
+ * Expose `repeat`
+ */
+
+module.exports = repeat;
+
+/**
+ * Repeat the given `string` the specified `number`
+ * of times.
+ *
+ * **Example:**
+ *
+ * ```js
+ * var repeat = require('repeat-string');
+ * repeat('A', 5);
+ * //=> AAAAA
+ * ```
+ *
+ * @param {String} `string` The string to repeat
+ * @param {Number} `number` The number of times to repeat the string
+ * @return {String} Repeated string
+ * @api public
+ */
+
+function repeat(str, num) {
+  if (typeof str !== 'string') {
+    throw new TypeError('expected a string');
+  }
+
+  // cover common, quick use cases
+  if (num === 1) return str;
+  if (num === 2) return str + str;
+
+  var max = str.length * num;
+  if (cache !== str || typeof cache === 'undefined') {
+    cache = str;
+    res = '';
+  } else if (res.length >= max) {
+    return res.substr(0, max);
+  }
+
+  while (max > res.length && num > 1) {
+    if (num & 1) {
+      res += str;
+    }
+
+    num >>= 1;
+    str += str;
+  }
+
+  res += str;
+  res = res.substr(0, max);
+  return res;
+}
+
+},{}],3:[function(require,module,exports){
 'use strict';
 
 // importa dependências
 var diacritics = require('diacritics');
 var palavroes = require('./words.js');
+var repeat = require('repeat-string');
 
 // Piii.js
 module.exports = function (string, options) {
@@ -351,7 +424,7 @@ module.exports = function (string, options) {
     // censura todos os palavrões, substituindo cada caractere
     // do palavrão pelo caractere * (censuraTemp)
     desacentuado = desacentuado.replace(re, function (correspondido) {
-        return censuraTemp.repeat(correspondido.length);
+        return repeat(censuraTemp, correspondido.length);
     });
 
     // nova string censurada
@@ -400,7 +473,7 @@ module.exports = function (string, options) {
     return str;
 };
 
-},{"./words.js":3,"diacritics":1}],3:[function(require,module,exports){
+},{"./words.js":4,"diacritics":1,"repeat-string":2}],4:[function(require,module,exports){
 module.exports = {
 
     // lista semi-pronta de expressões regulares para corresponder palavrões
@@ -434,5 +507,5 @@ module.exports = {
     }
 };
 
-},{}]},{},[2])(2)
+},{}]},{},[3])(3)
 });
