@@ -1,140 +1,85 @@
 'use strict';
 
-var diacritics = require('diacritics').remove,
-    repeat = require('repeat-string'),
-    words = require('./words.json');
+// importa dependências
+var diacritics = require('diacritics');
+var palavroes = require('./words.js');
 
-function criarRe(novos) {
-    for (var i in novos) {
-        novos[i] = novos[i].replace(/(\w)/g, '$1+');
+// Piii.js
+module.exports = function (string, options) {
+    if (!string) return;
+    options = options || {};
+
+    var censura = options.censura || '*';
+    var completo = options.completo || false;
+    var extras = options.extras || [];
+
+    // transforma todos os valores em string
+    // e remove a acentuação
+    extras = extras.map(function (extra) {
+        return diacritics.remove(extra.toString());
+    });
+
+    var censuraTemp = '*';
+
+    if (!completo) {
+        censuraTemp = censura.charAt(0);
     }
 
-    var j = novos.join(')|(')
-        .replace(/a/g, '[a24\@]')
-        .replace(/e/g, '[e3\&]')
-        .replace(/g/g, '[g9')
-        .replace(/i/g, '[i1]')
-        .replace(/l/g, '[l1]')
-        .replace(/o/g, '[o08\@]')
-        .replace(/q/g, '[q9]')
-        .replace(/t/g, '[t7]')
-        .replace(/s/g, '[s5\$]');
+    // string sem acentuação
+    var desacentuado = diacritics.remove(string);
 
-    return new RegExp('\\b((' + j + '))\\b', 'gi');
-}
+    // expressão regular para corresponder palavrões
+    var re = palavroes.ignorarLeet(palavroes.lista.concat(extras));
+    re = palavroes.criarRegExp(re);
 
-function replaceWords(original, censurado, censura) {
-    var coords = [];
-    var iniciado = false;
+    // censura todos os palavrões, substituindo cada caractere
+    // do palavrão pelo caractere * (censuraTemp)
+    desacentuado = desacentuado.replace(re, function (correspondido) {
+        return censuraTemp.repeat(correspondido.length);
+    });
 
-    for (var i = 0; i < original.length; i++) {
-        if (censurado[i] === original[i] && !iniciado) {
-            coords.push(i);
+    // nova string censurada
+    var str = '';
 
-            iniciado = true;
+    // navega por cada caractere de `string` e `desacentuado`
+    // esse processo recoloco as acentuações que foram removidas
+    // mais acima, para não haver erro com o "\b" na expressão
+    // regular do javascript
+    for (var i = 0; i < string.length; i++) {
+
+        // se o caractere for um caractere censurado, ele será
+        // adicionado em `str`
+        if (string[i] !== desacentuado[i] && desacentuado[i] === censuraTemp) {
+            str += desacentuado[i];
         } else {
-            if (censurado[i] !== original[i] && iniciado) {
-                coords.push(i);
 
-                iniciado = false;
-            }
+            // caso contrário, o caracter original
+            // (que pode ter acentos) será adicionado
+            str += string[i];
         }
     }
 
-    if (coords.length % 2 !== 0) coords.push(original.length);
+    // se for para censurar por uma sequência de caracteres
+    if (completo) {
+        var novaString = ''; // nova string censurada
+        var tmpCensurado = false; // temp
 
-    var partes = [];
+        // navega por cada caractere da string original
+        string.split('').forEach(function (char, index) {
 
-    if (censurado[0] !== original[0]) partes.push('');
-
-    for (var i = 0; i < coords.length; i += 2) {
-        partes.push(censurado.substring(coords[i], coords[i + 1]));
-    }
-
-    var ultimo = original.length - 1;
-
-    if (censurado[ultimo] !== original[ultimo]) {
-        partes.push('');
-    }
-
-    return partes.join(censura);
-}
-
-module.exports = function (string, options) {
-
-    if (!string && !options) {
-      return undefined;
-    }
-
-    options = options || {};
-
-    var censura = options.censura;
-
-    if (censura && typeof censura !== 'string') {
-        return undefined;
-    }
-
-    var completo = options.completo;
-
-    if (completo && typeof completo !== 'boolean') {
-        return undefined;
-    }
-
-    var extras = options.extras;
-
-    if (extras && !Array.isArray(extras)) {
-        return undefined;
-    }
-
-    if (extras) {
-        var temp = [];
-
-        extras.forEach(function (palavra) {
-            if (palavra && palavra.toString()) {
-                temp.push(diacritics(palavra.toString()));
+            // @,@
+            if (char === str[index]) {
+                novaString += char;
+                tmpCensurado = false;
+            } else if (tmpCensurado === false) {
+                novaString += censura;
+                tmpCensurado = true;
             }
         });
 
-        extras = temp;
-    } else {
-        extras = [];
+        return novaString;
     }
 
-    var cens;
-
-    if (censura) {
-        if (completo) {
-            cens = '*';
-        } else if (censura.length === 1) {
-            cens = censura;
-        } else {
-            cens = '*';
-        }
-    } else {
-        cens = '*';
-    }
-
-    var str = diacritics(string);
-
-    var re = criarRe(words.concat(extras));
-
-    str = str.replace(re, function (p) {
-        return repeat(cens, p.length);
-    });
-
-    var s = '';
-
-    for (var i = 0; i < string.length; i++) {
-        if (string[i] !== str[i] && str[i] === cens) {
-            s += str[i];
-        } else {
-            s += string[i];
-        }
-    }
-
-    if (completo) {
-        return replaceWords(string, s, censura);
-    }
-
-    return s;
+    // senão
+    return str;
 };
