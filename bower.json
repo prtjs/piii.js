@@ -1,6 +1,6 @@
 {
   "name": "piii.js",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Um filtro de palavrões da língua portuguesa.",
   "main": "dist/piii.js",
   "ignore": [
