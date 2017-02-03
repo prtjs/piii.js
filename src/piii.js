@@ -3,6 +3,7 @@
 // importa dependências
 var diacritics = require('diacritics');
 var palavroes = require('./words.js');
+var repeat = require('repeat-string');
 
 // Piii.js
 module.exports = function (string, options) {
@@ -35,7 +36,7 @@ module.exports = function (string, options) {
     // censura todos os palavrões, substituindo cada caractere
     // do palavrão pelo caractere * (censuraTemp)
     desacentuado = desacentuado.replace(re, function (correspondido) {
-        return censuraTemp.repeat(correspondido.length);
+        return repeat(censuraTemp, correspondido.length);
     });
 
     // nova string censurada
