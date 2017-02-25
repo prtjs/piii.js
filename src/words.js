@@ -27,6 +27,6 @@ module.exports = {
 
     // transformar array em expressão regular
     criarRegExp: function (lista) {
-        return new RegExp('\\b((' + lista.join(')|(') + '))\\b', 'gi');
+        return new RegExp('\\b((' + lista.join(')|(') + '))*\\b', 'gi');
     }
 };
