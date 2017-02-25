@@ -393,7 +393,8 @@ var diacritics = require('diacritics');
 var palavroes = require('./words.js');
 var repeat = require('repeat-string');
 
-// Piii.js
+// piii.js - veja a documentação em:
+// <https://github.com/theuves/piii.js#readme>
 module.exports = function (string, options) {
     if (!string) return;
     options = options || {};
@@ -431,7 +432,7 @@ module.exports = function (string, options) {
     var str = '';
 
     // navega por cada caractere de `string` e `desacentuado`
-    // esse processo recoloco as acentuações que foram removidas
+    // esse processo recoloca as acentuações que foram removidas
     // mais acima, para não haver erro com o "\b" na expressão
     // regular do javascript
     for (var i = 0; i < string.length; i++) {
@@ -503,7 +504,7 @@ module.exports = {
 
     // transformar array em expressão regular
     criarRegExp: function (lista) {
-        return new RegExp('\\b((' + lista.join(')|(') + '))\\b', 'gi');
+        return new RegExp('\\b((' + lista.join(')|(') + '))*\\b', 'gi');
     }
 };
 
