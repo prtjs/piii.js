@@ -9,11 +9,12 @@
   },
   "devDependencies": {
     "ava": "^0.15.2",
-    "browserify": "^13.0.1"
+    "browserify": "^13.0.1",
+    "uglify-js": "^2.8.5"
   },
   "scripts": {
     "test": "ava",
-    "build": "browserify src/piii.js -s piii -o dist/piii.js"
+    "build": "browserify src/piii.js -s piii -o dist/piii.js && cat dist/piii.js | uglifyjs -o dist/piii.min.js"
   },
   "repository": {
     "type": "git",
@@ -23,9 +24,5 @@
     "name": "Matheus Alves",
     "email": "theuves@gmail.com"
   },
-  "contributors": [
-    { "name": "Matheus Alves", "email": "theuves@gmail.com" },
-    { "name": " Marcio Antunes", "email": "cgslivre@cgslivre.com" }
-  ],
   "license": "MIT"
 }
