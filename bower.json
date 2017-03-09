@@ -3,12 +3,6 @@
   "version": "2.2.3",
   "description": "Um filtro de palavrões da língua portuguesa.",
   "main": "dist/piii.js",
-  "ignore": [
-    ".npmignore",
-    "package.json",
-    "src/piii.js",
-    "src/words.json"
-  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/theuves/piii.js.git"
@@ -17,9 +11,5 @@
     "name": "Matheus Alves",
     "email": "theuves@gmail.com"
   }],
-  "contributors": [
-    { "name": "Matheus Alves", "email": "theuves@gmail.com" },
-    { "name": " Marcio Antunes", "email": "cgslivre@cgslivre.com" }
-  ],
   "license": "MIT"
 }

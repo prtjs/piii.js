@@ -10,11 +10,14 @@
   "devDependencies": {
     "ava": "^0.15.2",
     "browserify": "^13.0.1",
-    "uglify-js": "^2.8.5"
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.1.0",
+    "vinyl-source-stream": "^1.1.0"
   },
   "scripts": {
     "test": "ava",
-    "build": "browserify src/piii.js -s piii -o dist/piii.js && cat dist/piii.js | uglifyjs -o dist/piii.min.js"
+    "build": "gulp"
   },
   "repository": {
     "type": "git",
