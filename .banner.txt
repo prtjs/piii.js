@@ -1,0 +1,1 @@
+/*! Piii.js v<%= pkg.version %> | © 2016-<%= (new Date()).getFullYear() %> Matheus Alves | <http://piii.js.org/> */
