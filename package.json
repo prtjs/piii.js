@@ -1,6 +1,6 @@
 {
   "name": "piii",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "Um avançado filtro de palavrões.",
   "main": "src/piii.js",
   "dependencies": {
