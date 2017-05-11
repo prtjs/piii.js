@@ -13,7 +13,8 @@ module.exports = {
   "pinto": "pint(ao|inho|o((s|z)inho)?|udo)",
   "piroca": "piro((c|k)(a(ada|o|(s|z)(inha|ona))?|inha|ona|ud(a|o))|quinha)",
   "porra": "po(h|rr)(a(o|(s|z)(inha|ona))?|inha|ona)",
-  "punheta": "p(o|u)nhet(a((s|z)(inha|ona))?|inha|ona)",
+  "punheta": "p(o|u)nhet(a((s|z)(inha|ona)|o)?|inha|ona)",
+  "puta": "put(a(ria|da|(s|z)(inha|ona)|o)?|inha|ona)",
 
   // Conjugações do verbo foder.
   // Feito com base nas informações obtidas em <https://www.conjugacao.com.br/verbo-foder/>.
