@@ -1,57 +1,45 @@
 "use strict";
 
+var construirRegex = require("./construir-regex");
 var desacentuar = require("diacritics").remove;
-var regex = require("./regex.js");
 
-module.exports = function (objeto) {
-  var censura = objeto.censura || "*";
-  var excecoes = objeto.excecoes || [];
+module.exports = function (string, censura, excecoes) {
+  string = string.toString();
 
-  censura = censura.toString();
+  var censuraOriginal = censura;
+
+  censura = typeof censura === "function"
+    ? censura
+    : function () {
+      return (censuraOriginal || "*").toString();
+    };
+
   excecoes = Array.isArray(excecoes)
     ? excecoes
     : [];
 
-  // Expressão regular para filtrar palavrões.
-  var filtro = regex(excecoes);
+  var filtro = construirRegex(excecoes);
+  var desacentuada = desacentuar(string);
+  var palavroes = desacentuada.match(filtro) || [];
 
-  this.filtrar = function (string, substituto) {
-    string = string.toString();
-
-    substituto = typeof substituto === "function"
-      ? substituto
-      : function () {
-      return censura;
-    };
-
-    var desacentuada = desacentuar(string);
-
-    // Lista de palavrões (sem acentos).
-    var listaDePalavroes = desacentuada.match(filtro) || [];
-
-    if (!listaDePalavroes.length) {
-      return string;
-    }
-
-    // Expressão regular somente com os palavrões encontrados.
-    var palavroesRegex = "\\b(" + listaDePalavroes.join("|") + ")\\b";
-    palavroesRegex = new RegExp(palavroesRegex);
-
-    var dividido = desacentuada.split(palavroesRegex);
-    var nova = "";
-
-    var indice = 0;
-
-    dividido.forEach(function (parte) {
-      var trecho = string.substring(indice, indice + parte.length)
-
-      nova += palavroesRegex.test(parte)
-        ? substituto(trecho)
-        : trecho;
-
-      indice += parte.length;
-    });
-
-    return nova;
+  if (!palavroes.length) {
+    return string;
   }
+
+  var regex = new RegExp("\\b(" + palavroes.join("|") + ")\\b");
+
+  var novaString = "";
+  var indice = 0;
+
+  desacentuada.split(regex).forEach(function (parte) {
+    var parteOriginal = string.substr(indice, parte.length);
+
+    novaString += regex.test(parte)
+      ? censura(parteOriginal)
+      : parteOriginal;
+
+    indice += parte.length;
+  });
+
+  return novaString;
 };

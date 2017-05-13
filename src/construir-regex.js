@@ -1,16 +1,14 @@
 "use strict";
 
-// Construir expressão regular com os palavrões.
-
-var regexs = require("./palavras.js");
-var leetzar = require("./leetzar.js");
+var leetzar = require("./1337izar");
+var listaDePalavroes = require("./lista-de-palavroes");
 
 module.exports = function (excecoes) {
   var palavras = [];
 
-  Object.keys(regexs).forEach(function (execao) {
+  Object.keys(listaDePalavroes).forEach(function (execao) {
     if (excecoes.indexOf(execao) === -1) {
-      palavras.push(regexs[execao]);
+      palavras.push(listaDePalavroes[execao]);
     }
   });
 
