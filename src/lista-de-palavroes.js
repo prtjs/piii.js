@@ -4,11 +4,12 @@
 
 module.exports = {
 
-  // Deve ser organizado por ordem alfabética (exceto "foder").
+  // Deve estar organizado por ordem alfabética (exceto "foder").
   "bilau": "bilau((s|z)(ao|inho))?",
   "boceta": "b(o|u)cet(a(o|(s|z)(inha|ona))?|inha|ona|ud(a|o))",
   "caralho": "(c|k)aralh(a(o|da|zinha)?|inh(a|o)|o(z(ao|inh(a|o)|ona)|na)?|u(d(a|o)))",
   "cu": "(c|k)u(h|(s|z)(ao|inho|ona))?",
+  "merda": "merd(a((s|z)(inha|ona)|o)?|inha|ona)",
   "pepeca": "pepe((c|k)(a((s|z)inha)?|inha|ona|ud(a|o))|quinha)",
   "pinto": "pint(ao|inho|o((s|z)inho)?|udo)",
   "piroca": "piro((c|k)(a(ada|o|(s|z)(inha|ona))?|inha|ona|ud(a|o))|quinha)",
