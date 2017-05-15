@@ -61,9 +61,9 @@ Veja abaixo a lista de palavrões podem ser ignorados:
 - `porra` (também filtra como `poha`)
 - `punheta` (também filtra `ponheta`)
 - `puta`
-- `foder` (também filtra `fuder` com toda a sua conjugação ― exceto no presente do indicativo e subjuntivo)
+- `foder` (também filtra `fuder` com toda a sua conjugação ― exceto no presente de todos os modos)
 
-A letra *C* também é aceita como *K* em `caralho`, `cu`, e `piroca`.
+A letra *C* também é aceita como *K* em `caralho`, `cu` e `piroca`.
 
 Veja um exemplo (que desconsidera *merda* como um palavrão):
 
