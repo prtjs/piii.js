@@ -24,18 +24,6 @@ Instale-o via linha de comando com:
 piii(string[, censura[, exceções]])
 ```
 
-## Exemplos
-
-Veja alguns exemplos abaixo com diferentes tentativas de burlá-lo.
-
-```js
-piii("Vá tomar no cú!"); // Retorna "Vá tomar no *!".
-piii("Vá se ⓕⓞⓓⓔⓡ!"); // Retorna "Vá se *!".
-piii("Que m3rd4."); // Retorna "Que *.".
-piii("Filho da ᵽṻțặ!"); // Retorna "Filho da *!".
-piii("Que porrrrra é essa?"); // Retorna "Que * é essa?".
-```
-
 ### Parâmetros
 
 - `string` ― A *string* que será filtrada.
