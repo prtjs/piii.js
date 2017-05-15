@@ -44,11 +44,11 @@ piii("Que porra é essa?", function (palavrao) {
 // Retorna "Que <del>porra</del> é essa?".
 ```
 
-#### As Exceções
+#### O Parâmetro `exceções`
 
 Nem todos os palavrões são vistos como impróprios, ofensivos ou obsenos por todas as pessoas, portanto é possível definir palavras que não devem ser filtrados na *string*.
 
-Veja abaixo a lista de palavrões podem ser ignorados:
+Veja abaixo a lista de palavrões podem ser usados:
 
 - `bilau`
 - `boceta`
