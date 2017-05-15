@@ -51,17 +51,17 @@ Nem todos os palavrões são vistos como impróprios, ofensivos ou obsenos por t
 Veja abaixo a lista de palavrões podem ser ignorados:
 
 - `bilau`
-- `boceta` (também filtra como `buceta` ― [com *u*](http://pseudolinguista.blogspot.com.br/2014/04/como-e-que-se-escreve-buceta-ou-boceta.html))
+- `boceta`
 - `caralho`
 - `cu`
 - `merda`
 - `pepeca`
 - `pinto`
 - `piroca`
-- `porra` (também filtra como `poha`)
-- `punheta` (também filtra `ponheta`)
+- `porra`
+- `punheta`
 - `puta`
-- `foder` (também filtra `fuder` com toda a sua conjugação ― exceto no presente de todos os modos)
+- `foder`
 
 A letra *C* também é aceita como *K* em `caralho`, `cu` e `piroca`.
 
