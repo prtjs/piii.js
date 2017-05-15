@@ -32,7 +32,7 @@ piii(string[, censura[, exceções]])
 
 #### O Parâmetro `censura` Como Uma Função
 
-Este parâmetro pode ser uma função que recebe como único parâmetro uma *string* com o palavrão que está sendo filtrado no momento e deve retornar uma *string*, que substituirá aquele determinado palavrão.
+Este parâmetro pode ser uma função que recebe como único parâmetro uma *string* com o palavrão que está sendo filtrado no momento, e deve retornar uma *string* que substituirá este mesmo palavrão.
 
 Veja um exemplo (que adiciona a *tag HTML* `<del>` entre os palavrões):
 
@@ -48,20 +48,20 @@ piii("Que porra é essa?", function (palavrao) {
 
 Nem todos os palavrões são vistos como impróprios, ofensivos ou obsenos por todas as pessoas, portanto é possível definir palavras que não devem ser filtrados na *string*.
 
-Veja abaixo a lista de palavrões podem ser usados:
+Veja abaixo a lista de palavrões podem ser ignorados:
 
 - `bilau`
-- `boceta` (e `buceta` ― [com *u*](http://pseudolinguista.blogspot.com.br/2014/04/como-e-que-se-escreve-buceta-ou-boceta.html))
+- `boceta` (também filtra como `buceta` ― [com *u*](http://pseudolinguista.blogspot.com.br/2014/04/como-e-que-se-escreve-buceta-ou-boceta.html))
 - `caralho`
 - `cu`
 - `merda`
 - `pepeca`
 - `pinto`
 - `piroca`
-- `porra` (e `poha`)
-- `punheta` (e `ponheta`)
+- `porra` (também filtra como `poha`)
+- `punheta` (também filtra `ponheta`)
 - `puta`
-- `foder` (e `fuder` com toda a sua conjugação ― exceto no presente do indicativo e subjuntivo)
+- `foder` (também filtra `fuder` com toda a sua conjugação ― exceto no presente do indicativo e subjuntivo)
 
 A letra *C* também é aceita como *K* em `caralho`, `cu`, e `piroca`.
 
