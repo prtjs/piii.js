@@ -1,70 +1,106 @@
 # Piii.js
 
-[![Build Status](https://travis-ci.org/theuves/piii.js.svg?branch=master)](https://travis-ci.org/theuves/piii.js)
-[![npm version](https://badge.fury.io/js/piii.svg)](https://badge.fury.io/js/piii)
-
 > Um avançado filtro de palavrões.
+
+[![Build Status](https://travis-ci.org/theuves/piii.js.svg?branch=master)](https://travis-ci.org/theuves/piii.js)
 
 ## Características
 
-* Ignora o uso de qualquer tipo acentuação.
-* Ignora se as palavras estão em caixa alta ou baixa.
-* Ignora números que possam substituir letras.
-* Ignora letras repetidas.
-
-São filtradas apenas palavras impróprias, ofensivas, agressivas ou obsenas sob o ponto de vista geral da sociedade. Palavras que não são consideradas impróprias por todos (como “merda” que pode não ser vista por alguns como de baixo calão) ou que possuam um duplo sentido junto a uma palavra comum (como “cacete” ou “pau”) não serão filtradas. Porém, será possível adicionar mais palavras ao filtro (você verá como mais abaixo).
+- ignora o uso de qualquer tipo acentuação
+- ignora se as palavras estão em caixa alta ou baixa
+- ignora números que possam substituir letras
+- ignora letras repetidas
 
 ## Instalação
 
-Instale-o com [`npm`](https://www.npmjs.com/), `npm i piii` ou com [`bower`](https://bower.io/), `bower i piii.js`.
+Instale-o via linha de comando com:
+
+- [*bower*](http://bower.io/) ― `bower install --save piii.js`.
+- [*npm*](https://npmjs.com/) ― `npm install --save piii`.
+
+## Sintaxe
+
+```
+piii(string[, censura[, exceções]])
+```
 
 ## Exemplos
 
 Veja alguns exemplos abaixo com diferentes tentativas de burlá-lo.
 
 ```js
-piii('Vá tomar no cú!'); // retorna 'Vá tomar no **!'
-piii('Vá se ⓕⓞⓓⓔⓡ!'); // retorna 'Vá se *****!'
-piii('Seu fdp!'); // retorna 'Seu ***!'
-piii('Cúzãozãozão'); // retorna '***********'
-piii('Filho da ᵽṻțặ!'); // retorna 'Filho da ****!'
-piii('Que porrrrra é essa?'); // retorna 'Que ******** é essa?'
+piii("Vá tomar no cú!"); // Retorna "Vá tomar no *!".
+piii("Vá se ⓕⓞⓓⓔⓡ!"); // Retorna "Vá se *!".
+piii("Que m3rd4."); // Retorna "Que *.".
+piii("Filho da ᵽṻțặ!"); // Retorna "Filho da *!".
+piii("Que porrrrra é essa?"); // Retorna "Que * é essa?".
 ```
 
-Você também pode escolher o caractere que substituirá cada letra do palavrão:
+### Parâmetros
+
+- `string` ― A *string* que será filtrada.
+- `censura` (*opcional*) ― Uma *string* para substituir cada palavrão, ou uma função para processar o palavrão antes de substituí-lo na *string*. Por padrão `censura` é um `*` (asterisco).
+- `exceções` (*opcional*) ― Uma array com uma lista dos palavrões que não devem ser filtrados.
+
+#### O Parâmetro `censura` Como Uma Função
+
+E pode ser uma função que recebe como único parâmetro uma *string* com o palavrão que está sendo filtrado no momento e deve retornar uma *string*, que substituirá aquele determinado palavrão.
+
+Veja um exemplo (que adiciona a *tag HTML* `<del>` entre os palavrões):
 
 ```js
-piii('Vá se foder!', {censura: 'π'}); // retorna 'Vá se πππππ!'
+piii("Que porra é essa?", function (palavrao) {
+  return "<del>" + palavrao + "</del>";
+});
+
+// Retorna "Que <del>porra</del> é essa?".
 ```
 
-Por padrão as letras são substituídas pelo caractere `*`. Observe que a *string* informada para substituir as letras deve conter apenas um caractere, caso contrário elas serão substituidas pelo caractere padrão, `*`. Caso queira substituir todo o palavrão por uma sequência de caracteres, você pode fazer como no exemplo abaixo:
+#### As Exceções
+
+Nem todos os palavrões são vistos como impróprios, ofensivos ou obsenos para todas as pessoas, portanto é possível definir palavras que não devem ser filtrados na *string*.
+
+Veja abaixo a lista de palavrões podem ser usados:
+
+- `bilau`
+- `boceta` (e `buceta` ― [com *u*](http://pseudolinguista.blogspot.com.br/2014/04/como-e-que-se-escreve-buceta-ou-boceta.html))
+- `caralho`
+- `cu`
+- `merda`
+- `pepeca`
+- `pinto`
+- `piroca`
+- `porra` (e `poha`)
+- `punheta` (e `ponheta`)
+- `puta`
+- `foder` (e `fuder` com toda a sua conjugação ― exceto no presente do indicativo e subjuntivo)
+
+A letra *C* também é aceita como *K* em `caralho`, `cu`, e `piroca`.
+
+Veja um exemplo (que desconsidera *merda* como um palavrão):
 
 ```js
-piii('Vá se foder!', {censura: '(piii)', completo: true}); // 'Vá se (piii)!'
+piii("Que porra é essa? Que merda. Vá se foder!", undefined, [
+  "merda"
+]);
+
+// Retorna "Que * é essa? Que merda. Vá se *!".
 ```
 
-Você também poderá adicionar mais palavrões ao filtro, veja o exemplo:
+**Obs.**: com isto, é desconsiderado todas as formas de se escrever o palavrão (como no exemplo acima, seria desconsiderado, tanto *merda* quanto *merdinha*, *merrrda*, *m3rd4*, etc.).
+
+## Exemplos
+
+Veja alguns exemplos abaixo com diferentes tentativas de burlá-lo.
 
 ```js
-piii('Que cacete! Seu m3rdinha!', {
-    censura: '(piii)',
-    completo: true,
-    extras: [
-        '(c|k)acet(e|i|inho|ao)',
-        'merd(a|inha|ona|ao|a(d|c)a)'
-    ]
-}); // isto retornará 'Que (piii)! Seu (piii)!'
+piii("Vá tomar no cú!"); // Retorna "Vá tomar no *!".
+piii("Vá se ⓕⓞⓓⓔⓡ!"); // Retorna "Vá se *!".
+piii("Que m3rd4."); // Retorna "Que *.".
+piii("Filho da ᵽṻțặ!"); // Retorna "Filho da *!".
+piii("Que porrrrra é essa?"); // Retorna "Que * é essa?".
 ```
-
-Onde `extras` deverá ser uma *array* contendo os palavrões dentro de uma cadeia de caracteres, podendo usar expressões regulares e **não** havendo a necessidade de passar caracteres acentuados, por exemplo, ao invés de usar `merdão` (com acento), você pode simplesmente usar `merdao`, pois todos os acentos, caracteres repetidos ou números que possam substituir letras serão ignorados.
-
-## Autor
-
-Feito por **@theuves**
-
-[![GitHub followers](https://img.shields.io/github/followers/theuves.svg?style=social&label=Follow)](https://github.com/theuves)
-[![Twitter Follow](https://img.shields.io/twitter/follow/theuves.svg?style=social&label=Follow)](https://twitter.com/theuves)
 
 ## Licença
 
-MIT ([veja o arquivo](https://raw.githubusercontent.com/theuves/piii.js/master/License))
+MIT ([veja o arquivo](https://github.com/theuves/piii.js/blob/master/license))
