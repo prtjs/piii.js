@@ -4,8 +4,7 @@
   "description": "Um avançado filtro de palavrões.",
   "main": "src/piii.js",
   "dependencies": {
-    "diacritics": "^1.2.3",
-    "repeat-string": "^1.6.1"
+    "diacritics": "^1.2.3"
   },
   "devDependencies": {
     "ava": "^0.15.2",
