@@ -46,7 +46,7 @@ piii("Que porra é essa?", function (palavrao) {
 
 #### As Exceções
 
-Nem todos os palavrões são vistos como impróprios, ofensivos ou obsenos para todas as pessoas, portanto é possível definir palavras que não devem ser filtrados na *string*.
+Nem todos os palavrões são vistos como impróprios, ofensivos ou obsenos por todas as pessoas, portanto é possível definir palavras que não devem ser filtrados na *string*.
 
 Veja abaixo a lista de palavrões podem ser usados:
 
