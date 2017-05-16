@@ -30,7 +30,7 @@ piii(string[, censura[, exceções]])
 - `censura` (*opcional*) ― Uma *string* para substituir cada palavrão, ou uma função para processar o palavrão antes de substituí-lo na *string*. Por padrão `censura` é um `*` (asterisco).
 - `exceções` (*opcional*) ― Uma array com uma lista dos palavrões que não devem ser filtrados.
 
-#### O Parâmetro `censura` (Como Uma Função)
+#### O Parâmetro `censura` [Como Uma Função]
 
 Este parâmetro pode ser uma outra função que recebe como único parâmetro uma *string* com o palavrão que está sendo filtrado no momento, e deve retornar uma *string* que substituirá este mesmo palavrão.
 
