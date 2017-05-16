@@ -10,11 +10,12 @@ test(function (t) {
   // Definindo uma censura.
   t.is(piii("Que porra é essa?", "π"), "Que π é essa?");
 
-  // Definindo uma censura (passando como função).
-  // [Substitui cada caractere do palavrão por um asterisco.]
+  // Definindo uma censura (como função).
+  // [Deixa somente a primeira letra e um asterisco
+  // nos palavrões que são filtrados.]
   t.is(piii("Que porra é essa?", function (string) {
-    return "*".repeat(string.length);
-  }), "Que ***** é essa?");
+    return string[0].concat("*");
+  }), "Que p* é essa?");
 
   // Ignorando "porra" como um palavrão.
   t.is(piii("Que porra é essa?", undefined, [
