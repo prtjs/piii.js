@@ -32,7 +32,7 @@ piii(string[, censura[, exceções]])
 
 #### O Parâmetro `censura` (Como Uma Função)
 
-O parâmetro `censura` pode ser uma função que recebe como único parâmetro uma *string* com o palavrão que está sendo filtrado no momento, e deve retornar uma *string* que substituirá este mesmo palavrão.
+Esse parâmetro pode ser uma outra função que recebe como único parâmetro uma *string* com o palavrão que está sendo filtrado no momento, e deve retornar uma *string* que substituirá este mesmo palavrão.
 
 Veja um exemplo (que adiciona a *tag HTML* `<del>` entre os palavrões):
 
