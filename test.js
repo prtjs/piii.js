@@ -4,6 +4,7 @@ var test = require("ava");
 var piii = require("./");
 
 test(function (t) {
+
   // Filtragem padrão.
   t.is(piii("Que porra é essa?"), "Que * é essa?");
 
