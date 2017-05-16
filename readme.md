@@ -30,9 +30,9 @@ piii(string[, censura[, exceções]])
 - `censura` (*opcional*) ― Uma *string* para substituir cada palavrão, ou uma função para processar o palavrão antes de substituí-lo na *string*. Por padrão `censura` é um `*` (asterisco).
 - `exceções` (*opcional*) ― Uma array com uma lista dos palavrões que não devem ser filtrados.
 
-#### O Parâmetro `censura` Como Uma Função
+#### O Parâmetro `censura` (Como Uma Função)
 
-Este parâmetro pode ser uma função que recebe como único parâmetro uma *string* com o palavrão que está sendo filtrado no momento, e deve retornar uma *string* que substituirá este mesmo palavrão.
+O parâmetro `censura` pode ser uma função que recebe como único parâmetro uma *string* com o palavrão que está sendo filtrado no momento, e deve retornar uma *string* que substituirá este mesmo palavrão.
 
 Veja um exemplo (que adiciona a *tag HTML* `<del>` entre os palavrões):
 
@@ -62,8 +62,6 @@ Veja abaixo a lista de palavrões podem ser usados:
 - `punheta`
 - `puta`
 - `foder`
-
-A letra *C* também é aceita como *K* em `caralho`, `cu` e `piroca`.
 
 Veja um exemplo (que desconsidera *merda* como um palavrão):
 
