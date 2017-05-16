@@ -15,8 +15,8 @@
 
 Instale-o via linha de comando com:
 
-- [*bower*](http://bower.io/) ― `bower install --save piii.js`.
-- [*npm*](https://npmjs.com/) ― `npm install --save piii`.
+- [*bower*](http://bower.io/) ― `bower install --save piii.js`
+- [*npm*](https://npmjs.com/) ― `npm install --save piii`
 
 ## Sintaxe
 
