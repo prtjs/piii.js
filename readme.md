@@ -77,6 +77,19 @@ piii("Que porra é essa? Que merda. Vá se foder!", undefined, [
 
 **Obs.**: com isto, é desconsiderado todas as formas de se escrever o palavrão (como no exemplo acima, seria desconsiderado, tanto *merda* quanto *merdinha*, *merrrda*, *m3rd4*, etc.).
 
+##### Filtragem das Palavras
+
+O palavrões mostrados acima estão escrito de uma forma correta (e assim devem ser passados na *array*), mas durante a filtragem eles podem ser considerados mesmo que estejam ortográficamente errados (normalmente de uma forma proposital).
+
+Formas de escritas ortográficamente erradas que são aceitas:
+
+- *buceta* ― com *u*
+- *cuh* ― como o *h* representando o *ú*
+- *fuder* ― com *u* (neste caso é filtrado toda a conjugação do verbo, exceto no presente do indicativo e subjuntivo)
+- *karalho*, *ku* e *piroka* ― com o *k* substituindo o *c*
+- *poha* ― com o *h* substituindo o *rr*
+- *ponheta* ― com *o*
+
 ## Exemplos
 
 Veja alguns exemplos abaixo com diferentes tentativas de burlá-lo.
