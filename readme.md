@@ -7,7 +7,7 @@
 ## Características
 
 - ignora o uso de qualquer tipo de acentuação
-- ignora se as palavras estão em caixa alta ou baixa
+- ignora se as palavras(ões) estão em caixa alta ou baixa
 - ignora números que possam substituir letras
 - ignora letras repetidas
 
@@ -46,7 +46,7 @@ piii("Que porra é essa?", function (palavrao) {
 
 #### O Parâmetro `exceções`
 
-Nem todos os palavrões são vistos como impróprios, ofensivos ou obsenos por todas as pessoas, portanto é possível definir palavras que não devem ser filtrados na *string*.
+Nem todos os palavrões são vistos como impróprios, ofensivos ou obsenos por todas as pessoas, portanto é possível definir palavrões que não devem ser filtrados na *string*.
 
 Veja abaixo a lista de palavrões podem ser usados:
 
