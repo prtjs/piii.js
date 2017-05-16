@@ -3,10 +3,21 @@
 var test = require("ava");
 var piii = require("./");
 
-test("piii", function (t) {
-  t.is(piii("Vá tomar no cú!"), "Vá tomar no *!");
-  t.is(piii("Vá se ⓕⓞⓓⓔⓡ!"), "Vá se *!");
-  t.is(piii("Que m3rd4."), "Que *.");
-  t.is(piii("Filho da ᵽṻțặ!"), "Filho da *!");
-  t.is(piii("Que porrrrra é essa?"), "Que * é essa?");
+test(function (t) {
+  // Filtragem padrão.
+  t.is(piii("Que porra é essa?"), "Que * é essa?");
+
+  // Definindo uma censura.
+  t.is(piii("Que porra é essa?", "π"), "Que π é essa?");
+
+  // Definindo uma censura (passando como função).
+  // [Substitui cada caractere do palavrão por um asterisco.]
+  t.is(piii("Que porra é essa?", function (string) {
+    return "*".repeat(string.length);
+  }), "Que ***** é essa?");
+
+  // Ignorando "porra" como um palavrão.
+  t.is(piii("Que porra é essa?", undefined, [
+    "porra"
+  ]), "Que porra é essa?");
 });
