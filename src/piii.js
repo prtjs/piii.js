@@ -8,7 +8,7 @@ module.exports = function (string, censura, excecoes) {
 
   var censuraOriginal = censura;
 
-  censura = typeof censura === "function"
+  censura = censura instanceof Function
     ? censura
     : function () {
       return (censuraOriginal || "*").toString();
