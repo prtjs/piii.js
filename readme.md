@@ -79,7 +79,7 @@ piii("Que porra é essa? Que merda. Vá se foder!", undefined, [
 
 O palavrões mostrados acima estão escrito de uma forma correta (e assim devem ser passados na *array*), mas durante a filtragem eles podem ser considerados mesmo que estejam ortográficamente errados (normalmente de uma forma proposital).
 
-Formas de escritas ortográficamente erradas que são aceitas:
+Formas de escritas ortográficamente erradas que são filtradas:
 
 - *buceta* ― com *u*
 - *cuh* ― como *h* representando o acento agudo no *u*
