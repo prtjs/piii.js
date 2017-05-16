@@ -6,7 +6,7 @@
 
 ## Características
 
-- ignora o uso de qualquer tipo acentuação
+- ignora o uso de qualquer tipo de acentuação
 - ignora se as palavras estão em caixa alta ou baixa
 - ignora números que possam substituir letras
 - ignora letras repetidas
