@@ -34,14 +34,14 @@ piii(string[, censura[, exceções]])
 
 Este parâmetro pode ser uma outra função que recebe como único parâmetro uma *string* com o palavrão que está sendo filtrado no momento, e deve retornar uma *string* que substituirá este mesmo palavrão.
 
-Veja um exemplo (que adiciona a *tag HTML* `<del>` entre os palavrões):
+Veja um exemplo (que adiciona a *tag HTML* `<strike>` entre os palavrões):
 
 ```js
-piii("Que porra é essa?", function (palavrao) {
-  return "<del>" + palavrao + "</del>";
+piii("Que porra é essa?", function (string) {
+  return string.strike();
 });
 
-// Retorna "Que <del>porra</del> é essa?".
+// Retorna "Que <strike>porra</strike> é essa?".
 ```
 
 #### O Parâmetro `exceções`
