@@ -17,7 +17,8 @@
   },
   "scripts": {
     "test": "ava",
-    "build": "gulp"
+    "build": "npm run build-list && gulp",
+    "build-list": "node src/lista/build.js"
   },
   "repository": {
     "type": "git",
