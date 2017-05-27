@@ -1,7 +1,7 @@
 "use strict";
 
 var leetzar = require("./1337izar");
-var listaDePalavroes = require("./lista-de-palavroes");
+var listaDePalavroes = require("./lista");
 
 module.exports = function (excecoes) {
   var palavras = [];
