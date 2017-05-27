@@ -1,4 +1,4 @@
-/*! Piii.js v2.2.4 | © 2016-2017 Matheus Alves | <http://piii.js.org/> */
+/*! Piii.js v3.0.0 | © 2016-2017 Matheus Alves | <http://piii.js.org/> */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.piii = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 exports.remove = removeDiacritics;
 
@@ -331,7 +331,7 @@ module.exports = function (regex) {
 "use strict";
 
 var leetzar = require("./1337izar");
-var listaDePalavroes = require("./lista-de-palavroes");
+var listaDePalavroes = require("./lista");
 
 module.exports = function (excecoes) {
   var palavras = [];
@@ -347,32 +347,19 @@ module.exports = function (excecoes) {
   }).join(")|(") + "))\\b", "gi");
 };
 
-},{"./1337izar":2,"./lista-de-palavroes":4}],4:[function(require,module,exports){
-"use strict";
-
-// Expressões regulares semi-prontas para cada palavrão.
-
-module.exports = {
-
-  // Deve estar organizado por ordem alfabética (exceto "foder").
-  "bilau": "bilau((s|z)(ao|inho))?",
-  "boceta": "b(o|u)cet(a(o|(s|z)(inha|ona))?|inha|ona|ud(a|o))",
-  "caralho": "(c|k)aralh(a(o|da|zinha)?|inh(a|o)|o(z(ao|inh(a|o)|ona)|na)?|u(d(a|o)))",
-  "cu": "(c|k)u(h|(s|z)(ao|inho|ona))?",
-  "merda": "merd(a((s|z)(inha|ona)|o)?|inha|ona)",
-  "pepeca": "pepe((c|k)(a((s|z)inha)?|inha|ona|ud(a|o))|quinha)",
-  "pinto": "pint(ao|inho|o((s|z)inho)?|udo)",
-  "piroca": "piro((c|k)(a(ada|o|(s|z)(inha|ona))?|inha|ona|ud(a|o))|quinha)",
-  "porra": "po(h|rr)(a(o|(s|z)(inha|ona))?|inha|ona)",
-  "punheta": "p(o|u)nhet(a((s|z)(inha|ona)|o)?|inha|ona)",
-  "puta": "put(a(ria|da|(s|z)(inha|ona)|o)?|inha|ona)",
-
-  // Conjugações do verbo foder.
-  // Feito com base nas informações obtidas em <https://www.conjugacao.com.br/verbo-foder/>.
-  // Corresponde também ao verbo "fuder" (escrita errada), com exceção do presente do indicativo e subjuntivo.
-  "foder": "(f(o|u)d(ido|endo|(e(mos|r(a(m(os)?|(o|s)?)?|des|ei(s)?|em(os)?|es|ia(m(os)?|s)?|ieis|mos)?|s(se(is|s|m(os)?)?|te(s)?)|u)|i((a(m(os)?|s)?)?|eis)?))|fod(a(is|m(os)?|s)?|e(is|m(os)?|s)?|o))"
-};
-
+},{"./1337izar":2,"./lista":4}],4:[function(require,module,exports){
+module.exports={
+  "bilau": "(bilau)((s|z)(ao|inho))?",
+  "boceta": "(b)((o|u))(cet)(a(o|(s|z)(inha|ona))|a|inha|ona|ud((a|o)))",
+  "caralho": "((c|k))(aralh)(a(o|da|(s|z)(inha))|a|inh((a|o))|o(na|(s|z)(ao|inho|ona))|o|u(d((a|o)))|u)",
+  "cu": "((c|k))(u)(h|(s|z)(ao|inho|ona))?",
+  "foder": "(f((o|u)(d(i(eis|as|a(mos|m)|a)|i|e(u|s(t(es|e)|s(e(s|mos|m|is)|e))|r(mos|i(eis|as|amos|am|a)|e(s|mos|m|is|i)|des|a(s|o|mos|m)|a)|r|mos|i)))|od(o|e(s|mos|m|is)|e|a(s|mos|m|is)|a)))",
+  "merda": "(merd)(a(o|(s|z)(inha|ona))|a|inha|ona)",
+  "pepeca": "((pp|pepe))((c|k)(a((s|z)(inha))|a|ona|ud((a|o)))|quinha)",
+  "ponheta": "(p)((o|u))(nhet)(a(o|(s|z)(inha|ona))|a|inha|ona)",
+  "porra": "(po)((h|rr))(a(o|(s|z)(inha|ona))|a|inha|ona)",
+  "puta": "(put)(a(ria|da|(s|z)(inha|ona))|a|inha|ona)"
+}
 },{}],5:[function(require,module,exports){
 "use strict";
 
