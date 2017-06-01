@@ -82,7 +82,7 @@ O palavrões mostrados acima estão escrito de uma forma correta (e assim devem 
 Formas de escritas ortográficamente erradas que são filtradas:
 
 - *buceta* ― com *u*
-- *cuh* ― como *h* representando o acento agudo no *u*
+- *cuh* ― com *h* representando o acento agudo no *u*
 - *fuder* ― com *u* (neste caso é filtrado toda a sua conjugação, exceto no presente do indicativo e subjuntivo)
 - *karalho*, *ku* e *piroka* ― com *k* substituindo o *c*
 - *poha* ― com o *h* substituindo o *rr*
