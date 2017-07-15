@@ -7,7 +7,7 @@
 ## Características
 
 - ignora o uso de qualquer tipo de acentuação
-- ignora se as palavras(ões) estão em caixa alta ou baixa
+- ignora se os palavrões estão em caixa alta ou baixa
 - ignora números que possam substituir letras
 - ignora letras repetidas
 
