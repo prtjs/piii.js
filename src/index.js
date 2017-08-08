@@ -3,7 +3,15 @@
 var construirRegex = require("./construir-regex");
 var desacentuar = require("diacritics").remove;
 
-module.exports = function (string, censura, excecoes) {
+/**
+ * Veja <https://github.com/theuves/piii.js#readme>.
+ *
+ * @param {String} string - String para ser filtrada.
+ * @param {String|Function} [censura] - Censura para os palavrões.
+ * @param {Array} [excecoes] - Palavrões que devem ser ignorados.
+ * @returns {String} - String filtrada.
+ */
+function piii(string, censura, excecoes) {
   string = string.toString();
 
   var censuraOriginal = censura;
@@ -18,14 +26,18 @@ module.exports = function (string, censura, excecoes) {
     ? excecoes
     : [];
 
+  // Constrói as Expressões Regulares, remove todos os caracteres especiais,
+  // e filtra todos os palavrões (separando-os em uma Array).
   var filtro = construirRegex(excecoes);
   var desacentuada = desacentuar(string);
   var palavroes = desacentuada.match(filtro) || [];
 
+  // Se não for encontrado nenhum palavrão.
   if (!palavroes.length) {
     return string;
   }
 
+  // Cria uma Expressão Regular somente com os palavrões filtrados.
   var regex = new RegExp("\\b(" + palavroes.join("|") + ")\\b");
 
   var novaString = "";
@@ -43,3 +55,5 @@ module.exports = function (string, censura, excecoes) {
 
   return novaString;
 };
+
+module.exports = piii;
