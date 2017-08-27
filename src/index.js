@@ -2,6 +2,7 @@
 
 var construirRegex = require("./construir-regex");
 var desacentuar = require("diacritics").remove;
+var tdsIgnorados = require("./tds-ignorados");
 
 /**
  * Veja <https://github.com/theuves/piii.js#readme>.
@@ -25,6 +26,13 @@ function piii(string, censura, excecoes) {
   excecoes = Array.isArray(excecoes)
     ? excecoes
     : [];
+
+  // Isto retornará a string sem modificá-la, pois se todos os
+  // palavrões forem marcados nas exceções, não haverá palavrões
+  // para serem filtrado, portanto todas as palavras serão filtradas.
+  if (tdsIgnorados(excecoes)) {
+    return string;
+  }
 
   // Constrói as Expressões Regulares, remove todos os caracteres especiais,
   // e filtra todos os palavrões (separando-os em uma Array).

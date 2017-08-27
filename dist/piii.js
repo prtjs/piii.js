@@ -1,4 +1,8 @@
-/*! Piii.js v3.0.0 | © 2016-2017 Matheus Alves | <http://piii.js.org/> */
+/*!
+ * Piii.js v3.0.0
+ * (c) 2016-2017 Matheus Alves
+ * https://github.com/theuves/piii.js
+ */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.piii = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 exports.remove = removeDiacritics;
 
@@ -317,56 +321,54 @@ function removeDiacritics(str) {
 },{}],2:[function(require,module,exports){
 "use strict";
 
-module.exports = function (regex) {
-  return regex
-    .replace(/(a)/g, "[$14]")
-    .replace(/(e)/g, "[$13]")
-    .replace(/(i)/g, "[$11]")
-    .replace(/(o)/g, "[$10]")
-    .replace(/(s)/g, "[$15]")
-    .replace(/(t)/g, "[$17]");
-};
-
-},{}],3:[function(require,module,exports){
-"use strict";
-
-var leetzar = require("./1337izar");
+var leetzar = require("./leetzar");
 var listaDePalavroes = require("./lista");
 
-module.exports = function (excecoes) {
+/**
+ * Junta todas as Expressões Regulares (geradas em "./lista/index.json"),
+ * ignorando os palavrões que devem ser ignorados pelo filtro.
+ *
+ * @param {Array} [excecoes] - Lista de palavrões que devem ser ignorados.
+ * @returns {RegExp} - Expressão Regular construída.
+ */
+function construirRegex(excecoes) {
+
+  // Amazenará somente as regexs dos palavrões que não serão ignorados.
   var palavras = [];
 
-  Object.keys(listaDePalavroes).forEach(function (execao) {
-    if (excecoes.indexOf(execao) === -1) {
-      palavras.push(listaDePalavroes[execao]);
+  // Navega por todos os palavrões da lista.
+  Object.keys(listaDePalavroes).forEach(function (palavrao) {
+
+    // Se o palavrão não estiver na lista de excecões.
+    if (excecoes.indexOf(palavrao) === -1) {
+      palavras.push(listaDePalavroes[palavrao]);
     }
   });
 
+  // Cria a regex e retorna-a.
   return new RegExp("\\b((" + palavras.map(function (expressao) {
     return leetzar(expressao.replace(/(\w)/g, "$1+"));
   }).join(")|(") + "))\\b", "gi");
-};
-
-},{"./1337izar":2,"./lista":4}],4:[function(require,module,exports){
-module.exports={
-  "bilau": "(bilau)((s|z)(ao|inho))?",
-  "boceta": "(b)((o|u))(cet)(a(o|(s|z)(inha|ona))|a|inha|ona|ud((a|o)))",
-  "caralho": "((c|k))(aralh)(a(o|da|(s|z)(inha))|a|inh((a|o))|o(na|(s|z)(ao|inho|ona))|o|u(d((a|o)))|u)",
-  "cu": "((c|k))(u)(h|(s|z)(ao|inho|ona))?",
-  "foder": "(f((o|u)(d(i(eis|as|a(mos|m)|a)|i|e(u|s(t(es|e)|s(e(s|mos|m|is)|e))|r(mos|i(eis|as|amos|am|a)|e(s|mos|m|is|i)|des|a(s|o|mos|m)|a)|r|mos|i)))|od(o|e(s|mos|m|is)|e|a(s|mos|m|is)|a)))",
-  "merda": "(merd)(a(o|(s|z)(inha|ona))|a|inha|ona)",
-  "pepeca": "((pp|pepe))((c|k)(a((s|z)(inha))|a|ona|ud((a|o)))|quinha)",
-  "porra": "(po)((h|rr))(a(o|(s|z)(inha|ona))|a|inha|ona)",
-  "punheta": "(p)((o|u))(nhet)(a(o|(s|z)(inha|ona))|a|inha|ona)",
-  "puta": "(put)(a(ria|da|(s|z)(inha|ona))|a|inha|ona)"
 }
-},{}],5:[function(require,module,exports){
+
+module.exports = construirRegex;
+
+},{"./leetzar":4,"./lista":5}],3:[function(require,module,exports){
 "use strict";
 
 var construirRegex = require("./construir-regex");
 var desacentuar = require("diacritics").remove;
+var tdsIgnorados = require("./tds-ignorados");
 
-module.exports = function (string, censura, excecoes) {
+/**
+ * Veja <https://github.com/theuves/piii.js#readme>.
+ *
+ * @param {String} string - String para ser filtrada.
+ * @param {String|Function} [censura] - Censura para os palavrões.
+ * @param {Array} [excecoes] - Palavrões que devem ser ignorados.
+ * @returns {String} - String filtrada.
+ */
+function piii(string, censura, excecoes) {
   string = string.toString();
 
   var censuraOriginal = censura;
@@ -381,14 +383,25 @@ module.exports = function (string, censura, excecoes) {
     ? excecoes
     : [];
 
+  // Isto retornará a string sem modificá-la, pois se todos os
+  // palavrões forem marcados nas exceções, não haverá palavrões
+  // para serem filtrado, portanto todas as palavras serão filtradas.
+  if (tdsIgnorados(excecoes)) {
+    return string;
+  }
+
+  // Constrói as Expressões Regulares, remove todos os caracteres especiais,
+  // e filtra todos os palavrões (separando-os em uma Array).
   var filtro = construirRegex(excecoes);
   var desacentuada = desacentuar(string);
   var palavroes = desacentuada.match(filtro) || [];
 
+  // Se não for encontrado nenhum palavrão.
   if (!palavroes.length) {
     return string;
   }
 
+  // Cria uma Expressão Regular somente com os palavrões filtrados.
   var regex = new RegExp("\\b(" + palavroes.join("|") + ")\\b");
 
   var novaString = "";
@@ -407,5 +420,74 @@ module.exports = function (string, censura, excecoes) {
   return novaString;
 };
 
-},{"./construir-regex":3,"diacritics":1}]},{},[5])(5)
+module.exports = piii;
+
+},{"./construir-regex":2,"./tds-ignorados":6,"diacritics":1}],4:[function(require,module,exports){
+"use strict";
+
+/**
+ * Recebe uma Expressão Regular (no formato de string) e adiciona números que
+ * possam substituir números durante a filtragem dos palavrões.
+ *
+ * @param {String} regex - Expressão Regular.
+ * @returns {String} - Expressão Regular com mais opções de letras.
+ *
+ * @example
+ * leetzar("porra"); //=> (p[o0]rr[a4])
+ */
+function leetzar(regex) {
+  return regex
+    .replace(/(a)/g, "[$14]")
+    .replace(/(e)/g, "[$13]")
+    .replace(/(i)/g, "[$11]")
+    .replace(/(o)/g, "[$10]")
+    .replace(/(s)/g, "[$15]")
+    .replace(/(t)/g, "[$17]");
+}
+
+module.exports = leetzar;
+
+},{}],5:[function(require,module,exports){
+module.exports={
+  "bilau": "(bilau)((s|z)(ao|inho))?",
+  "caralho": "((c|k))(aralh)(a(o|da|(s|z)(inha))|a|inh((a|o))|o(na|(s|z)(ao|inho|ona))|o|u(d((a|o)))|u)",
+  "cu": "((c|k))(u)(h|(s|z)(ao|inho|ona))?",
+  "pepeca": "((pp|pepe))((c|k)(a((s|z)(inha))|a|ona|ud((a|o)))|(ki|qui)(nha))",
+  "porra": "(po)((h|rr))(a(o|(s|z)(inha|ona))|a|inha|ona)",
+  "punheta": "(p)((o|u))(nhet)(a(o|(s|z)(inha|ona))|a|inha|ona)",
+  "puta": "(put)(a(ria|da|(s|z)(inha|ona))|a|inha|ona)",
+  "foder": "(f((o|u)(d(i(eis|as|a(mos|m)|a)|i|e(u|s(t(es|e)|s(e(s|mos|m|is)|e))|r(mos|i(eis|as|amos|am|a)|e(s|mos|m|is|i)|des|a(s|o|mos|m)|a)|r|mos|i)))|od(o|e(s|mos|m|is)|e|a(s|mos|m|is)|a)))",
+  "merda": "(merd)(a(o|(s|z)(inha|ona))|a|inha|ona)",
+  "boceta": "(b)((o|u))(cet)(a(o|(s|z)(inha|ona))|a|inha|ona|ud((a|o)))",
+  "pinto": "(pint)(o((s|z)(inho|ao))|o|ao|udo)",
+  "piroca": "(p)((i|y))(ro((c|k)(a(o|zona|zinha)|a|ona|ud(a|o))|(ki|qui)(nha(zona|zinha)|nha)))"
+}
+},{}],6:[function(require,module,exports){
+"use strict";
+
+var listaDePalavroes = require("./lista");
+
+listaDePalavroes = Object.keys(listaDePalavroes);
+
+/**
+ * Checar se na lista de exceções tem todos os palavrões.
+ *
+ * @param {Array} exececoes - Lista de exceções.
+ * @returns {Boolean} - Informa se contém todos os palavrões.
+ */
+function tdsIgnorados(exececoes) {
+  var contem = 0;
+
+  listaDePalavroes.forEach(function (palavrao) {
+    if (exececoes.indexOf(palavrao) !== -1) {
+      contem++;
+    }
+  });
+
+  return contem === listaDePalavroes.length;
+}
+
+module.exports = tdsIgnorados;
+
+},{"./lista":5}]},{},[3])(3)
 });
