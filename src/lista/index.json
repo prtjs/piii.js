@@ -1,12 +1,14 @@
 {
   "bilau": "(bilau)((s|z)(ao|inho))?",
-  "boceta": "(b)((o|u))(cet)(a(o|(s|z)(inha|ona))|a|inha|ona|ud((a|o)))",
   "caralho": "((c|k))(aralh)(a(o|da|(s|z)(inha))|a|inh((a|o))|o(na|(s|z)(ao|inho|ona))|o|u(d((a|o)))|u)",
   "cu": "((c|k))(u)(h|(s|z)(ao|inho|ona))?",
-  "foder": "(f((o|u)(d(i(eis|as|a(mos|m)|a)|i|e(u|s(t(es|e)|s(e(s|mos|m|is)|e))|r(mos|i(eis|as|amos|am|a)|e(s|mos|m|is|i)|des|a(s|o|mos|m)|a)|r|mos|i)))|od(o|e(s|mos|m|is)|e|a(s|mos|m|is)|a)))",
-  "merda": "(merd)(a(o|(s|z)(inha|ona))|a|inha|ona)",
-  "pepeca": "((pp|pepe))((c|k)(a((s|z)(inha))|a|ona|ud((a|o)))|quinha)",
+  "pepeca": "((pp|pepe))((c|k)(a((s|z)(inha))|a|ona|ud((a|o)))|(ki|qui)(nha))",
   "porra": "(po)((h|rr))(a(o|(s|z)(inha|ona))|a|inha|ona)",
   "punheta": "(p)((o|u))(nhet)(a(o|(s|z)(inha|ona))|a|inha|ona)",
-  "puta": "(put)(a(ria|da|(s|z)(inha|ona))|a|inha|ona)"
+  "puta": "(put)(a(ria|da|(s|z)(inha|ona))|a|inha|ona)",
+  "foder": "(f((o|u)(d(i(eis|as|a(mos|m)|a)|i|e(u|s(t(es|e)|s(e(s|mos|m|is)|e))|r(mos|i(eis|as|amos|am|a)|e(s|mos|m|is|i)|des|a(s|o|mos|m)|a)|r|mos|i)))|od(o|e(s|mos|m|is)|e|a(s|mos|m|is)|a)))",
+  "merda": "(merd)(a(o|(s|z)(inha|ona))|a|inha|ona)",
+  "boceta": "(b)((o|u))(cet)(a(o|(s|z)(inha|ona))|a|inha|ona|ud((a|o)))",
+  "pinto": "(pint)(o((s|z)(inho|ao))|o|ao|udo)",
+  "piroca": "(p)((i|y))(ro((c|k)(a(o|zona|zinha)|a|ona|ud(a|o))|(ki|qui)(nha(zona|zinha)|nha)))"
 }
