@@ -1,14 +1,14 @@
 {
-  "bilau": "(bilau)((s|z)(ao|inho))?",
-  "caralho": "((c|k))(aralh)(a(o|da|(s|z)(inha))|a|inh((a|o))|o(na|(s|z)(ao|inho|ona))|o|u(d((a|o)))|u)",
-  "cu": "((c|k))(u)(h|(s|z)(ao|inho|ona))?",
-  "pepeca": "((pp|pepe))((c|k)(a((s|z)(inha))|a|ona|ud((a|o)))|(ki|qui)(nha))",
-  "porra": "(po)((h|rr))(a(o|(s|z)(inha|ona))|a|inha|ona)",
-  "punheta": "(p)((o|u))(nhet)(a(o|(s|z)(inha|ona))|a|inha|ona)",
-  "puta": "(put)(a(ria|da|(s|z)(inha|ona))|a|inha|ona)",
-  "foder": "(f((o|u)(d(i(eis|as|a(mos|m)|a)|i|e(u|s(t(es|e)|s(e(s|mos|m|is)|e))|r(mos|i(eis|as|amos|am|a)|e(s|mos|m|is|i)|des|a(s|o|mos|m)|a)|r|mos|i)))|od(o|e(s|mos|m|is)|e|a(s|mos|m|is)|a)))",
-  "merda": "(merd)(a(o|(s|z)(inha|ona))|a|inha|ona)",
-  "boceta": "(b)((o|u))(cet)(a(o|(s|z)(inha|ona))|a|inha|ona|ud((a|o)))",
-  "pinto": "(pint)(o((s|z)(inho|ao))|o|ao|udo)",
-  "piroca": "(p)((i|y))(ro((c|k)(a(o|zona|zinha)|a|ona|ud(a|o))|(ki|qui)(nha(zona|zinha)|nha)))"
+  "bilau": "(bilau)((s|z)(oes|(a|inh)((os|o)))|s)?",
+  "caralho": "((c|k))(aralh)(a((os|o)|d((as|a))|(s|z)(inh((as|a)))|s)|a|inh((os|as|a|o))|o(es|n((as|a))|(s|z)(a((os|o))|oes|inh((os|o)))|s)|o|u(d((os|as|o|a)))|(us|u))",
+  "cu": "((c|k))(u)(h|(s|z)((a|inh)((os|o))|o(es|n((as|a))))|s)?",
+  "pepeca": "((pp|pepe))((c|k)(a((s|z)(inh((as|a)))|s)|a|o(es|n((as|a)))|ud((os|as|o|a)))|(ki|qui)(nh((as|a))))",
+  "porra": "(po)((h|rr))(a((os|o)|(s|z)((inh|on)((as|a))))|a|(inh|on)((as|a)))",
+  "punheta": "(p)((o|u))(nhet)(o(es|n((as|a)))|a(d((as|a))|(os|o)|(s|z)((inh|on)((as|a)))|s)|a|(inh|on)((as|a)))",
+  "puta": "(put)(a((ri|d)((as|a))|(s|z)((inh|on)((as|a)))|s)|a|(inh|on)((as|a))|o(es|n((as|a))))",
+  "foder": "(f((o|u)(d(i(d((os|as|o|a))|eis|as|a(mos|m)|a)|i|e(ndo|u|s(t(es|e)|s(e(s|mos|m|is)|e))|r(mos|i(eis|as|amos|am|a)|e(s|mos|m|is|i)|des|a(s|o|mos|m)|a)|r|mos|i)))|od(inha|o(es|na)|o|e(s|mos|m|is)|e|a(o|s|mos|m|is)|a)))",
+  "merda": "(merd)(o(es|n((as|a)))|a((os|o)|(s|z)((inh|on)((as|a)))|s)|a|(inh|on)((as|a)))",
+  "boceta": "(b)((o|u))(cet)(a((os|o)|(s|z)((inh|on)((as|a)))|s)|a|o(es|n((as|a)))|inh((as|a))|ud((os|as|o|a)))",
+  "pinto": "(pint)(o(es|(s|z)((a|inh)((os|o)))|s)|o|a((os|o))|ud((os|as|o|a)))",
+  "piroca": "(p)((i|y))(ro((c|k)(a((os|o)|(s|z)((on|inh)((as|a)))|s)|a|o(es|n((as|a)))|ud((os|as|o|a)))|(ki|qui)(nha((s|z)((on|inh)((as|a)))|s)|nha)))"
 }
