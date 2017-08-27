@@ -2,7 +2,7 @@
   "name": "piii",
   "version": "3.0.0",
   "description": "Um avançado filtro de palavrões.",
-  "main": "src/piii.js",
+  "main": "src/index.js",
   "dependencies": {
     "diacritics": "^1.2.3"
   },
@@ -21,8 +21,7 @@
   },
   "scripts": {
     "test": "ava",
-    "regexs": "gulp regexs",
-    "build": "npm run regexs && gulp"
+    "build": "gulp"
   },
   "repository": {
     "type": "git",
