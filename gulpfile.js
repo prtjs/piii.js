@@ -15,32 +15,32 @@ var browserify = require("browserify");
 var source = require("vinyl-source-stream");
 
 gulp.task("regexs", function () {
-  return gulp.src("./src/lista/regexs/**/*.palavr")
+  return gulp.src("src/lista/regexs/**/*.palavr")
     .pipe(palavr("index.json"))
-    .pipe(gulp.dest("./src/lista/"));
+    .pipe(gulp.dest("src/lista"));
 });
 
 gulp.task("browserify", ["regexs"], function () {
-  return browserify("./src/index.js", {standalone: "piii"})
-    .plugin(banner, {file: "./.banner.txt"})
+  return browserify("src/index.js", {standalone: "piii"})
+    .plugin(banner, {file: ".banner.txt"})
     .bundle()
     .pipe(source("piii.js"))
-    .pipe(gulp.dest("./dist/"));
+    .pipe(gulp.dest("dist"));
 });
 
 gulp.task("uglify", ["browserify"], function () {
-  return gulp.src("./dist/piii.js")
+  return gulp.src("dist/piii.js")
     .pipe(uglify({output: {comments: "/^!/"}}))
     .pipe(rename("piii.min.js"))
-    .pipe(gulp.dest("./dist/"));
+    .pipe(gulp.dest("dist"));
 });
 
 gulp.task("watch", function () {
-  return watch("./src/lista/regexs/**/*.palavr", function () {
-    return gulp.src("./src/lista/regexs/**/*.palavr")
+  return watch("src/lista/regexs/**/*.palavr", function () {
+    return gulp.src("src/lista/regexs/**/*.palavr")
       .pipe(plumber())
       .pipe(palavr("index.json"))
-      .pipe(gulp.dest("./src/lista/"));
+      .pipe(gulp.dest("src/lista"));
   });
 });
 
