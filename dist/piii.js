@@ -1,5 +1,5 @@
 /*!
- * Piii.js v3.0.0
+ * Piii.js v3.0.1-beta.1
  * (c) 2016-2017 Matheus Alves
  * https://github.com/theuves/piii.js
  */
@@ -321,8 +321,117 @@ function removeDiacritics(str) {
 },{}],2:[function(require,module,exports){
 "use strict";
 
-var leetzar = require("./leetzar");
-var listaDePalavroes = require("./lista");
+/**
+ * Complementar letras de uma string.
+ *
+ * @param {String} string - A string que terá as letras complementadas.
+ * @param {Object} letras - Objeto com os complementos.
+ * @returns {String} - String com as letras complementadas
+ * @example
+ * complementarLetras("amores", {
+ *   "a": ["2", "4"],
+ *   "o": ["0"],
+ *   "e": ["3"],
+ *   "s": ["5", "z"]
+ * });
+ * //=> "(a|2|4)m(o|0)r(e|3)(s|5|z)"
+ */
+function complementarLetras(string, complementos) {
+  string = string.toString();
+
+  // Se não for um objeto, então não terá o
+  // que complementar na string.
+  if (typeof complementos !== "object") {
+    return string;
+  }
+
+  var listaDeLetras = Object.keys(complementos);
+
+  /**
+   * Função para verificar se há itens repetidos em uma array.
+   *
+   * Obtida no stackoverflow, questão 19655975.
+   *
+   * [ADAPTADA]
+   */
+  function checkIfArrayIsUnique(array) {
+    array.sort();
+
+    for (var i = 1; i < array.length; i++ ) {
+      if (array[i - 1] === array[i]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  // Verificar se há itens repetidos.
+  if (!checkIfArrayIsUnique(listaDeLetras)) {
+    throw new Error("Não pode haver itens repetidos");
+  }
+
+  // Analisará todas as letras que foram adicionadas.
+  listaDeLetras.forEach(function (letra) {
+
+    // Se for uma letra válida.
+    if (/^\s*\w\s*$/i.test(letra)) {
+      var listaDeComplementos = complementos[letra];
+
+      // Verifica se os dados da array também são válidos.
+      if (Array.isArray(listaDeComplementos)) {
+        listaDeComplementos.forEach(function (complemento) {
+          complemento = complemento
+            .toString()
+            .trim()
+          ;
+
+          if (!/^\s*\w\s*$/i.test(complemento)) {
+            throw new Error("Caractere inválido");
+          }
+        });
+      } else {
+        throw new Error("Deve ser uma array");
+      }
+    } else {
+      throw new Error("Caractere inválido");
+    }
+  });
+
+  // Substitui os dados da string.
+  listaDeLetras.forEach(function (letra) {
+    letra = letra
+      .toString()
+      .trim()
+    ;
+
+    // Se dentro da array haver a mesma letra, ela será removida aqui.
+    complementos[letra] = complementos[letra].filter(function (letraQueSubstituirah) {
+      return letraQueSubstituirah !== letra;
+    });
+
+    var letrasEmString = complementos[letra]
+      .join("|")
+      .replace(/\s/g, "");
+
+    var letrasSubstitutas = "(" + letra + "|" + letrasEmString + ")";
+
+    var re = new RegExp(letra, "g");
+
+    // Atualizar a string.
+    string = string.replace(re, letrasSubstitutas);
+  });
+
+  return string;
+}
+
+module.exports = complementarLetras;
+
+},{}],3:[function(require,module,exports){
+"use strict";
+
+var todosOsFiltros = require("./todos-os-filtros");
+var complementarLetras = require("./complementar-letras");
 
 /**
  * Junta todas as Expressões Regulares (geradas em "./lista/index.json"),
@@ -331,163 +440,524 @@ var listaDePalavroes = require("./lista");
  * @param {Array} [excecoes] - Lista de palavrões que devem ser ignorados.
  * @returns {RegExp} - Expressão Regular construída.
  */
-function construirRegex(excecoes) {
+function construirRegex(excecoes, adicionados, complementados) {
+  var filtros = todosOsFiltros(adicionados);
 
   // Amazenará somente as regexs dos palavrões que não serão ignorados.
   var palavras = [];
 
   // Navega por todos os palavrões da lista.
-  Object.keys(listaDePalavroes).forEach(function (palavrao) {
+  Object.keys(filtros).forEach(function (palavrao) {
 
     // Se o palavrão não estiver na lista de excecões.
     if (excecoes.indexOf(palavrao) === -1) {
-      palavras.push(listaDePalavroes[palavrao]);
+      palavras.push(filtros[palavrao]);
     }
   });
 
   // Cria a regex e retorna-a.
   return new RegExp("\\b((" + palavras.map(function (expressao) {
-    return leetzar(expressao.replace(/(\w)/g, "$1+"));
+    return complementarLetras(expressao.replace(/(\w)/g, "$1+"), complementados);
   }).join(")|(") + "))\\b", "gi");
 }
 
 module.exports = construirRegex;
 
-},{"./leetzar":4,"./lista":5}],3:[function(require,module,exports){
+},{"./complementar-letras":2,"./todos-os-filtros":6}],4:[function(require,module,exports){
+"use strict";
+
+/**
+ * Criar filtros de palavrões.
+ * Baseado no sufixo das palavrras.
+ *
+ * @param {Array} palavroes - Array de objetos c/ dados dos palavrões.
+ * @returns {Object} Objeto com regexs (em string) de todos os palavroes.
+ */
+function criarFiltros(palavroes) {
+  var listaComPalavroes = {};
+
+  var validar = {
+    nome: function (nome) {
+      return /^[A-Za-z]+$/.test(nome);
+    },
+    prefixo: function (prefixo) {
+      return /^[A-Za-z]+$/.test(prefixo);
+    },
+    sufixos: function (sufixos) {
+      if (Array.isArray(sufixos)) {
+        var filtrados = sufixos.filter(function (sufixo) {
+          return /^[A-Za-z]+$/.test(sufixo);
+        });
+
+        return filtrados.length === sufixos.length;
+      }
+
+      return false;
+    }
+  };
+
+  /**
+   * Função para remover itens repetidos em uma array.
+   *
+   * Obtida no stackoverflow, questão 9229645.
+   */
+  function uniq(a) {
+    return a.sort().filter(function(item, pos, ary) {
+        return !pos || item != ary[pos - 1];
+    })
+  }
+
+  palavroes.forEach(function (objeto) {
+    if (
+         typeof objeto === "object"
+      && validar.nome(objeto.nome)
+      && validar.prefixo(objeto.prefixo)
+      && validar.sufixos(objeto.sufixos)
+    ) {
+      objeto.sufixos = uniq(objeto.sufixos
+        .sort()
+        .reverse()
+      );
+
+      var palavrao = objeto.prefixo + "(" + objeto.sufixos.join("|") + ")";
+
+      listaComPalavroes[objeto.nome] = palavrao;
+    }
+  });
+
+  return listaComPalavroes;
+}
+
+module.exports = criarFiltros;
+
+},{}],5:[function(require,module,exports){
 "use strict";
 
 var construirRegex = require("./construir-regex");
 var desacentuar = require("diacritics").remove;
-var tdsIgnorados = require("./tds-ignorados");
+var todosTaoIgnorados = require("./todos-tao-ignorados");
 
 /**
- * Veja <https://github.com/theuves/piii.js#readme>.
+ * Filtro de palavrões.
  *
- * @param {String} string - String para ser filtrada.
- * @param {String|Function} [censura] - Censura para os palavrões.
- * @param {Array} [excecoes] - Palavrões que devem ser ignorados.
- * @returns {String} - String filtrada.
+ * @param {Function|String} censura - Censura para os palavrões.
+ * @param {Object} opcoes - Configurações do filtro.
  */
-function piii(string, censura, excecoes) {
-  string = string.toString();
+function Piii(censura, opcoes) {
+  opcoes = opcoes || {};
 
+  // Armazena a "censura" para uso posterior.
   var censuraOriginal = censura;
 
+  // Transform a "censura" em uma função, caso não seja.
   censura = censura instanceof Function
     ? censura
     : function () {
       return (censuraOriginal || "*").toString();
-    };
+    }
+  ;
 
-  excecoes = Array.isArray(excecoes)
-    ? excecoes
-    : [];
+  // Opções.
+  // =======
 
-  // Isto retornará a string sem modificá-la, pois se todos os
-  // palavrões forem marcados nas exceções, não haverá palavrões
-  // para serem filtrado, portanto todas as palavras serão filtradas.
-  if (tdsIgnorados(excecoes)) {
-    return string;
+  var adicionados = opcoes.adicionar;
+  var complementados = opcoes.complementar;
+  var ignorados = opcoes.ignorar;
+
+  // Transforma os "adicionados" em uma array, caso não seja.
+  adicionados = Array.isArray(adicionados)
+    ? adicionados
+    : []
+  ;
+
+  // Transforma os "complementados" em um objeto, caso não seja.
+  complementados = typeof complementados === "object"
+    ? complementados
+    : []
+  ;
+
+  // Transforma os "ignorados" em uma array, caso não seja.
+  ignorados = Array.isArray(ignorados)
+    ? ignorados
+    : []
+  ;
+
+  // Criar as funções.
+  // =================
+
+  /**
+   * Censurar os palavrões.
+   *
+   * @param {String} string - String que será filtrada.
+   * @returns {String} - String filtrada.
+   */
+  function censurar(string) {
+
+    // Isto retornará a string sem modificá-la, pois se todos os
+    // palavrões forem marcados nas exceções, não haverá palavrões
+    // para serem filtrado, portanto todas as palavras serão filtradas.
+    if (todosTaoIgnorados(ignorados, adicionados)) {
+      return string;
+    }
+
+    // Constrói as Expressões Regulares, remove todos os caracteres especiais,
+    // e filtra todos os palavrões (separando-os em uma Array).
+    var filtro = construirRegex(ignorados, adicionados, complementados);
+    var desacentuada = desacentuar(string);
+    var palavroes = desacentuada.match(filtro) || [];
+
+    // Se não for encontrado nenhum palavrão.
+    if (!palavroes.length) {
+      return string;
+    }
+
+    // Cria uma Expressão Regular somente com os palavrões filtrados.
+    var regex = new RegExp("\\b(" + palavroes.join("|") + ")\\b");
+
+    var novaString = "";
+    var indice = 0;
+
+    desacentuada.split(regex).forEach(function (parte) {
+      var parteOriginal = string.substr(indice, parte.length);
+
+      novaString += regex.test(parte)
+        ? censura(parteOriginal)
+        : parteOriginal;
+
+      indice += parte.length;
+    });
+
+    return novaString;
   }
 
-  // Constrói as Expressões Regulares, remove todos os caracteres especiais,
-  // e filtra todos os palavrões (separando-os em uma Array).
-  var filtro = construirRegex(excecoes);
-  var desacentuada = desacentuar(string);
-  var palavroes = desacentuada.match(filtro) || [];
-
-  // Se não for encontrado nenhum palavrão.
-  if (!palavroes.length) {
-    return string;
+  /**
+   * Verificar se há palavrões em uma string.
+   *
+   * @param {String} string - String que será analisada.
+   * @returns {Boolean} Informa se há ou não há.
+   */
+  function verificar(string) {
+    return censurar(string) !== string;
   }
 
-  // Cria uma Expressão Regular somente com os palavrões filtrados.
-  var regex = new RegExp("\\b(" + palavroes.join("|") + ")\\b");
+  // Retornar as funções.
+  // ====================
 
-  var novaString = "";
-  var indice = 0;
+  this.censurar = censurar;
+  this.verificar = verificar;
+}
 
-  desacentuada.split(regex).forEach(function (parte) {
-    var parteOriginal = string.substr(indice, parte.length);
+module.exports = Piii;
 
-    novaString += regex.test(parte)
-      ? censura(parteOriginal)
-      : parteOriginal;
-
-    indice += parte.length;
-  });
-
-  return novaString;
-};
-
-module.exports = piii;
-
-},{"./construir-regex":2,"./tds-ignorados":6,"diacritics":1}],4:[function(require,module,exports){
+},{"./construir-regex":3,"./todos-tao-ignorados":7,"diacritics":1}],6:[function(require,module,exports){
 "use strict";
 
+var criarFiltros = require("./criar-filtros");
+
 /**
- * Recebe uma Expressão Regular (no formato de string) e adiciona números que
- * possam substituir números durante a filtragem dos palavrões.
+ * Retorna uma lista de todos os palavrões que serão filtrados.
  *
- * @param {String} regex - Expressão Regular.
- * @returns {String} - Expressão Regular com mais opções de letras.
- *
- * @example
- * leetzar("porra"); //=> (p[o0]rr[a4])
+ * @param {Array} adicionados - Lista personalizada.
+ * @returns {Object} Lista de todos os palavrões.
  */
-function leetzar(regex) {
-  return regex
-    .replace(/(a)/g, "[$14]")
-    .replace(/(e)/g, "[$13]")
-    .replace(/(i)/g, "[$11]")
-    .replace(/(o)/g, "[$10]")
-    .replace(/(s)/g, "[$15]")
-    .replace(/(t)/g, "[$17]");
+function todosOsFiltros(adicionados) {
+  adicionados = adicionados || [];
+
+  // Palavrões adicionados pelo usuário.
+  adicionados = criarFiltros(adicionados);
+
+  // Todos os palavrões padrões do filtro.
+  var lista = criarFiltros([
+
+    /**
+     * Caralho
+     * =======
+     *
+     * (substantivo masculino)
+     */
+    {
+      nome: "caralho",
+      prefixo: "caralh",
+      sufixos: [
+        "a",
+        "ada",
+        "adas",
+        "ao",
+        "aos",
+        "as",
+        "inha",
+        "inhas",
+        "inho",
+        "inhos",
+        "o",
+        "oes",
+        "os",
+        "ozao",
+        "ozaos",
+        "ozinho",
+        "ozinhos",
+        "uda",
+        "udas",
+        "udo",
+        "udos"
+      ]
+    },
+
+    /**
+     * Porra
+     * =====
+     *
+     * (substantivo feminino)
+     */
+    {
+      nome: "porra",
+      prefixo: "porr",
+      sufixos: [
+        "a",
+        "ao",
+        "aos",
+        "as",
+        "azinha",
+        "azinhas",
+        "azona",
+        "azonas",
+        "inha",
+        "inhas",
+        "ona",
+        "onas"
+      ]
+    },
+
+    /**
+     * Cu
+     * ==
+     *
+     * (substantivo masculino)
+     */
+    {
+      nome: "cu",
+      prefixo: "c",
+      sufixos: [
+        "uzao",
+        "uzaos",
+        "uzinho",
+        "uzinhos",
+        "uzoes",
+        "uzuda",
+        "uzudas",
+        "uzudo",
+        "uzudos"
+      ]
+    },
+
+    /**
+     * Pinto
+     * =====
+     *
+     * (substantivo masculino)
+     */
+    {
+      nome: "pinto",
+      prefixo: "pint",
+      sufixos: [
+        "ao",
+        "aos",
+        "o",
+        "oes",
+        "os",
+        "ozao",
+        "ozaos",
+        "ozinho",
+        "ozinhos",
+        "uda",
+        "udas",
+        "udo",
+        "udos"
+      ]
+    },
+
+    /**
+     * Boceta
+     * ======
+     *
+     * (substantivo feminino)
+     */
+    {
+      nome: "boceta",
+      prefixo: "bocet",
+      sufixos: [
+        "a",
+        "ada",
+        "adas",
+        "ao",
+        "aos",
+        "as",
+        "azinha",
+        "azinhas",
+        "azona",
+        "azonas",
+        "inha",
+        "inhas",
+        "oes",
+        "uda",
+        "udas",
+        "udo",
+        "udos"
+      ]
+    },
+
+    /**
+     * Foder
+     * =====
+     *
+     * (verbo)
+     */
+    {
+      nome: "foder",
+      prefixo: "fod",
+      sufixos: [
+
+        /**
+         * Particípio.
+         */
+        "ido",
+        "idos",
+        "ida",
+        "idas",
+
+        /**
+         * Gerúndio.
+         */
+        "endo",
+
+        /**
+         * Conjugações do verbo.
+         */
+        "a",
+        "ais",
+        "am",
+        "amo",
+        "amos",
+        "as",
+        "e",
+        "ei",
+        "eis",
+        "em",
+        "emo",
+        "emos",
+        "endo",
+        "er",
+        "era",
+        "eram",
+        "eramo",
+        "eramos",
+        "erao",
+        "eras",
+        "erdes",
+        "erei",
+        "ereis",
+        "erem",
+        "eremos",
+        "eres",
+        "eria",
+        "eriam",
+        "eriamos",
+        "erias",
+        "erieis",
+        "ermo",
+        "ermos",
+        "es",
+        "esse",
+        "esseis",
+        "essem",
+        "essemos",
+        "esses",
+        "este",
+        "estes",
+        "eu",
+        "i",
+        "ia",
+        "iam",
+        "iamo",
+        "iamos",
+        "ias",
+        "iei",
+        "ieis",
+        "o"
+      ]
+    },
+
+    /**
+     * Puta
+     * ====
+     *
+     * (substantivo masculino)
+     */
+    {
+      nome: "puta",
+      prefixo: "put",
+      sufixos: [
+        "a",
+        "ada",
+        "adas",
+        "ao",
+        "aos",
+        "aria",
+        "arias",
+        "as",
+        "o",
+        "oes",
+        "os",
+        "zinha",
+        "zinhas",
+        "zona",
+        "zonas"
+      ]
+    }
+  ]);
+
+  // Juntar todos os palavrões padrões com os
+  // que foram adicionados pelo usuário.
+  //
+  // Isto ignorará se haverá os mesmos palavrões
+  // que já foram adicionados na lista padrão.
+  Object
+    .keys(adicionados)
+    .forEach(function (adicionado) {
+      lista[adicionado] = adicionados[adicionado];
+    })
+  ;
+
+  return lista;
 }
 
-module.exports = leetzar;
+module.exports = todosOsFiltros;
 
-},{}],5:[function(require,module,exports){
-module.exports={
-  "bilau": "(bilau)((s|z)(oes|(a|inh)((os|o)))|s)?",
-  "caralho": "((c|k))(aralh)(a((os|o)|d((as|a))|(s|z)(inh((as|a)))|s)|a|inh((os|as|a|o))|o(es|n((as|a))|(s|z)(a((os|o))|oes|inh((os|o)))|s)|o|u(d((os|as|o|a)))|(us|u))",
-  "cu": "((c|k))(u)(h|(s|z)((a|inh)((os|o))|o(es|n((as|a))))|s)?",
-  "pepeca": "((pp|pepe))((c|k)(a((s|z)(inh((as|a)))|s)|a|o(es|n((as|a)))|ud((os|as|o|a)))|(ki|qui)(nh((as|a))))",
-  "porra": "(po)((h|rr))(a((os|o)|(s|z)((inh|on)((as|a))))|a|(inh|on)((as|a)))",
-  "punheta": "(p)((o|u))(nhet)(o(es|n((as|a)))|a(d((as|a))|(os|o)|(s|z)((inh|on)((as|a)))|s)|a|(inh|on)((as|a)))",
-  "puta": "(put)(a((ri|d)((as|a))|(s|z)((inh|on)((as|a)))|s)|a|(inh|on)((as|a))|o(es|n((as|a))))",
-  "foder": "(f((o|u)(d(i(d((os|as|o|a))|eis|as|a(mos|m)|a)|i|e(ndo|u|s(t(es|e)|s(e(s|mos|m|is)|e))|r(mos|i(eis|as|amos|am|a)|e(s|mos|m|is|i)|des|a(s|o|mos|m)|a)|r|mos|i)))|od(inha|o(es|na)|o|e(s|mos|m|is)|e|a(o|s|mos|m|is)|a)))",
-  "merda": "(merd)(o(es|n((as|a)))|a((os|o)|(s|z)((inh|on)((as|a)))|s)|a|(inh|on)((as|a)))",
-  "boceta": "(b)((o|u))(cet)(a((os|o)|(s|z)((inh|on)((as|a)))|s)|a|o(es|n((as|a)))|inh((as|a))|ud((os|as|o|a)))",
-  "pinto": "(pint)(o(es|(s|z)((a|inh)((os|o)))|s)|o|a((os|o))|ud((os|as|o|a)))",
-  "piroca": "(p)((i|y))(ro((c|k)(a((os|o)|(s|z)((on|inh)((as|a)))|s)|a|o(es|n((as|a)))|ud((os|as|o|a)))|(ki|qui)(nha((s|z)((on|inh)((as|a)))|s)|nha)))"
-}
-},{}],6:[function(require,module,exports){
+},{"./criar-filtros":4}],7:[function(require,module,exports){
 "use strict";
 
-var listaDePalavroes = require("./lista");
-
-listaDePalavroes = Object.keys(listaDePalavroes);
+var todosOsFiltros = require("./todos-os-filtros");
 
 /**
- * Checar se na lista de exceções tem todos os palavrões.
+ * Checar se na lista de ignorados tem todos os palavrões.
  *
- * @param {Array} exececoes - Lista de exceções.
+ * @param {Array} ignorados - Lista de ignorados.
  * @returns {Boolean} - Informa se contém todos os palavrões.
  */
-function tdsIgnorados(exececoes) {
+function todosTaoIgnorados(ignorados, adicionados) {
+  var filtros = Object.keys(todosOsFiltros(adicionados));
   var contem = 0;
 
-  listaDePalavroes.forEach(function (palavrao) {
-    if (exececoes.indexOf(palavrao) !== -1) {
+  filtros.forEach(function (palavrao) {
+    if (ignorados.indexOf(palavrao) !== -1) {
       contem++;
     }
   });
 
-  return contem === listaDePalavroes.length;
+  return contem === todosOsFiltros.length;
 }
 
-module.exports = tdsIgnorados;
+module.exports = todosTaoIgnorados;
 
-},{"./lista":5}]},{},[3])(3)
+},{"./todos-os-filtros":6}]},{},[5])(5)
 });

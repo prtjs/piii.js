@@ -10,14 +10,7 @@
     "ava": "^0.15.2",
     "browserify": "^13.0.1",
     "browserify-banner": "^1.0.3",
-    "gulp": "^3.9.1",
-    "gulp-palavr": "^0.0.2",
-    "gulp-plumber": "^1.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^2.1.0",
-    "gulp-watch": "^4.3.11",
-    "palavr": "^0.0.1",
-    "vinyl-source-stream": "^1.1.0"
+    "uglifyjs": "^"
   },
   "scripts": {
     "test": "ava",
