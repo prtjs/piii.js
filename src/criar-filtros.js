@@ -30,6 +30,17 @@ function criarFiltros(palavroes) {
     }
   };
 
+  /**
+   * Função para remover itens repetidos em uma array.
+   *
+   * Obtida no stackoverflow, questão 9229645.
+   */
+  function uniq(a) {
+    return a.sort().filter(function(item, pos, ary) {
+        return !pos || item != ary[pos - 1];
+    })
+  }
+
   palavroes.forEach(function (objeto) {
     if (
          typeof objeto === "object"
@@ -37,10 +48,10 @@ function criarFiltros(palavroes) {
       && validar.prefixo(objeto.prefixo)
       && validar.sufixos(objeto.sufixos)
     ) {
-      objeto.sufixos = objeto.sufixos
+      objeto.sufixos = uniq(objeto.sufixos
         .sort()
         .reverse()
-      ;
+      );
 
       var palavrao = objeto.prefixo + "(" + objeto.sufixos.join("|") + ")";
 

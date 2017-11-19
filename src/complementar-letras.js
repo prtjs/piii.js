@@ -29,7 +29,7 @@ function complementarLetras(string, complementos) {
   /**
    * Função para verificar se há itens repetidos em uma array.
    *
-   * Obtida no stackoverflow (pt), questão 19655975.
+   * Obtida no stackoverflow, questão 19655975.
    *
    * [ADAPTADA]
    */

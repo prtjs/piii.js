@@ -164,10 +164,18 @@ function todosOsFiltros(adicionados) {
       nome: "foder",
       prefixo: "fod",
       sufixos: [
+
+        /**
+         * Particípio.
+         */
         "ido",
         "idos",
         "ida",
         "idas",
+
+        /**
+         * Gerúndio.
+         */
         "endo",
 
         /**
