@@ -4,102 +4,89 @@
 
 [![Build Status](https://travis-ci.org/theuves/piii.js.svg?branch=master)](https://travis-ci.org/theuves/piii.js)
 
-## Características
-
-- ignora o uso de qualquer tipo de acentuação
-- ignora se os palavrões estão em caixa alta ou baixa
-- ignora números que possam substituir letras
-- ignora letras repetidas
-
 ## Instalação
 
-Instale-o via linha de comando com:
+Você pode instalá-lo pelo terminal com:
 
-- [*bower*](http://bower.io/) ― `bower install --save piii.js`
-- [*npm*](https://npmjs.com/) ― `npm install --save piii`
+- [*bower*](http://bower.io/): `bower install --save piii.js`
+- [*npm*](https://npmjs.com/):  `npm install --save piii`.
 
-## Sintaxe
+Ou pode baixá-lo manualmente [AQUI](#) caso queira usá-lo em um *browser*.
 
-```
-piii(string[, censura[, exceções]])
-```
+Após isso, importe-o da forma que quiser.
 
-### Parâmetros
+## Uso
 
-- `string` ― A *string* que será filtrada.
-- `censura` (*opcional*) ― Uma *string* para substituir cada palavrão, ou uma função para processar o palavrão antes de substituí-lo na *string*. Por padrão `censura` é um `*` (asterisco).
-- `exceções` (*opcional*) ― Uma array com uma lista dos palavrões que não devem ser filtrados.
-
-#### O Parâmetro `censura` [Como Uma Função]
-
-Este parâmetro pode ser uma outra função que recebe como único parâmetro uma *string* com o palavrão que está sendo filtrado no momento, e deve retornar uma *string* que substituirá este mesmo palavrão.
-
-Veja um exemplo (que adiciona a *tag HTML* `<strike>` entre os palavrões):
+Exemplo simples:
 
 ```js
-piii("Que porra é essa?", function (string) {
-  return string.strike();
+var piii = new Piii("💩");
+
+piii.censurar("Haha, que porra é essa?");
+```
+
+O exemplo acima etornaria `Haha, que 💩 é essa?`.
+
+### Sintaxe
+
+```
+new Piii([censura[, opções]])
+```
+
+Isso retorna um objeto com duas funções:
+
+|Função:|Descrição:|
+|:-:|:-:|
+|`censurar(string)`|Censurar os palavrões na string.|
+|`verificar(string)`|Verificar se há palavrões na string.|
+
+#### *`censura`*
+
+- Tipo: *String* ou *Função*
+
+> Dado que substituirá os palavrões quando forem censurados.
+
+Veja alguns exemplos:
+
+```js
+/**
+ * Em string.
+ */
+var exemplo1 = new Piii("(piii)");
+
+exemplo1.censurar("Que se foda!");
+//=> "Que se (piii)!"
+
+/**
+ * Em função.
+ */
+var exemplo2 = new Piii(function (palavra) {
+	return palavra.charAt(0) + "*";
 });
 
-// Retorna "Que <strike>porra</strike> é essa?".
+exemplo2.censurar("Que se foda!");
+//=> "Que se f*!"
 ```
 
-#### O Parâmetro `exceções`
+Se nenhum valor em `censura` for passado, então ele valerá `*`.
 
-Nem todos os palavrões são vistos como impróprios, ofensivos ou obsenos por todas as pessoas, portanto é possível definir palavrões que não devem ser filtrados na *string*.
+#### `opções`
 
-Veja abaixo a lista de palavrões podem ser usados:
+- Tipo: *Objeto*
 
-- `bilau`
-- `boceta`
-- `caralho`
-- `cu`
-- `merda`
-- `pepeca`
-- `pinto`
-- `piroca`
-- `porra`
-- `punheta`
-- `puta`
-- `foder`
+> Configurações do filtro.
 
-Veja um exemplo (que desconsidera *merda* como um palavrão):
+Opções válidas:
 
-```js
-piii("Que porra é essa? Que merda. Vá se foder!", undefined, [
-  "merda"
-]);
+| Opção: | Tipo: | Descrição: |
+|:-:|:-:|:-:|
+| `adicionar` | *Array* | Adicionar novos palavrões ao filtro. |
+| `complementar` | *Objeto* | Complementar letras para sere filtradas. |
+| `desacentuador` | *Função* | Um desacentuador de letras personalizado. |
+| `ignorar`| *Array* | Lista de palavrões que não devem ser filtrados. | 
 
-// Retorna "Que * é essa? Que merda. Vá se *!".
-```
-
-**Obs.**: com isto, é desconsiderado todas as formas de se escrever o palavrão (como no exemplo acima, seria desconsiderado, tanto *merda* quanto *merdinha*, *merrrda*, *m3rd4*, etc.).
-
-##### Filtragem das Palavras
-
-O palavrões mostrados acima estão escrito de uma forma correta (e assim devem ser passados na *array*), mas durante a filtragem eles podem ser considerados mesmo que estejam ortográficamente errados (normalmente de uma forma proposital).
-
-Formas de escritas ortograficamente erradas que são filtradas:
-
-- *buceta* ― com *u*
-- *cuh* ― com *h* representando o acento agudo no *u*
-- *fuder* ― com *u* (neste caso é filtrado toda a sua conjugação, exceto no presente do indicativo e subjuntivo)
-- *karalho*, *ku* e *piroka* ― com *k* substituindo o *c*
-- *poha* ― com o *h* substituindo o *rr*
-- *ponheta* ― com *o*
-
-## Exemplos
-
-Veja alguns exemplos abaixo com diferentes tentativas de burlá-lo.
-
-```js
-piii("Vá tomar no cú!"); // Retorna "Vá tomar no *!".
-piii("Vá se ⓕⓞⓓⓔⓡ!"); // Retorna "Vá se *!".
-piii("Que m3rd4."); // Retorna "Que *.".
-piii("Filho da ᵽṻțặ!"); // Retorna "Filho da *!".
-piii("Que porrrrra é essa?"); // Retorna "Que * é essa?".
-```
+Veja informações de cada opção [aqui](#).
 
 ## Licença
 
-MIT ([veja o arquivo](https://github.com/theuves/piii.js/blob/master/license))
+MIT ([veja o arquivo](#))
