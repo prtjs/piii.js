@@ -83,7 +83,7 @@ Opções válidas:
 | `adicionar` | *Array* | Adicionar novos palavrões ao filtro. |
 | `complementar` | *Objeto* | Complementar letras para sere filtradas. |
 | `desacentuador` | *Função* | Um desacentuador de letras personalizado. |
-| `ignorar`| *Array* | Lista de palavrões que não devem ser filtrados. | 
+| `ignorar`| *Array* | Lista de palavrões que não devem ser filtrados. |
 
 Veja informações de cada opção [aqui](#).
 

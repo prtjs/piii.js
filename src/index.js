@@ -12,19 +12,10 @@ var todosTaoIgnorados = require("./libs/todos-tao-ignorados");
 function Piii(censura, opcoes) {
   opcoes = opcoes || {};
 
-  var censuraOriginal = censura;
-
-  censura = censura instanceof Function
-    ? censura
-    : function () {
-      return (censuraOriginal || "*").toString();
-    }
-  ;
-
-  var adicionados = opcoes.adicionar || [];;
-  var complementados = opcoes.complementar || {};;
+  var adicionados = opcoes.adicionar || [];
+  var complementados = opcoes.complementar || {};
   var desacentuar = opcoes.desacentuador || require("diacritics").remove;
-  var ignorados = opcoes.ignorar || [];;
+  var ignorados = opcoes.ignorar || [];
 
   if (!Array.isArray(adicionados)) {
     throw new Error("Deve ser uma array");
@@ -41,6 +32,16 @@ function Piii(censura, opcoes) {
   if (!Array.isArray(ignorados)) {
     throw new Error("Deve ser uma array");
   }
+
+  // (Para não causar conflitos posteriores.)
+  var censuraOriginal = censura;
+
+  censura = censura instanceof Function
+    ? censura
+    : function () {
+      return (censuraOriginal || "*").toString();
+    }
+  ;
 
   /**
    * Censurar os palavrões.
