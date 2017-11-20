@@ -10,11 +10,8 @@ var criarFiltros = require("./criar-filtros");
  */
 function todosOsFiltros(adicionados) {
   adicionados = adicionados || [];
-
-  // Palavrões adicionados pelo usuário.
   adicionados = criarFiltros(adicionados);
 
-  // Todos os palavrões padrões do filtro.
   var lista = criarFiltros([
 
     /**
@@ -267,8 +264,8 @@ function todosOsFiltros(adicionados) {
   // Juntar todos os palavrões padrões com os
   // que foram adicionados pelo usuário.
   //
-  // Isto ignorará se haverá os mesmos palavrões
-  // que já foram adicionados na lista padrão.
+  // (Isto ignorará se haverá os mesmos palavrões
+  // que já foram adicionados na lista padrão.)
   Object
     .keys(adicionados)
     .forEach(function (adicionado) {

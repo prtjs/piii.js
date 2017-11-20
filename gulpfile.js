@@ -3,7 +3,6 @@
 var gulp = require("gulp");
 
 // Gulp...
-var plumber = require("gulp-plumber");
 var rename = require("gulp-rename");
 var uglify = require("gulp-uglify");
 var watch = require("gulp-watch");
@@ -14,7 +13,7 @@ var browserify = require("browserify");
 var source = require("vinyl-source-stream");
 
 gulp.task("browserify", function () {
-  return browserify("src/index.js", {standalone: "piii"})
+  return browserify("src/index.js", {standalone: "Piii"})
     .plugin(banner, {file: ".banner.txt"})
     .bundle()
     .pipe(source("piii.js"))

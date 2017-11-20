@@ -4,13 +4,17 @@
   "description": "Um avançado filtro de palavrões.",
   "main": "src/index.js",
   "dependencies": {
+    "array-unique": "^0.2.1",
     "diacritics": "^1.2.3"
   },
   "devDependencies": {
     "ava": "^0.15.2",
     "browserify": "^13.0.1",
     "browserify-banner": "^1.0.3",
-    "uglifyjs": "^"
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.1.0",
+    "vinyl-source-stream": "^1.1.0"
   },
   "scripts": {
     "test": "ava",
