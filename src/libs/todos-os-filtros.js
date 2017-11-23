@@ -3,10 +3,10 @@
 var criarFiltros = require("./criar-filtros");
 
 /**
- * Retorna uma lista de todos os palavrões que serão filtrados.
+ * Obter expressões regulares para filtrar palavrões.
  *
- * @param {Array} adicionados - Lista personalizada.
- * @returns {Object} Lista de todos os palavrões.
+ * @param {Array} adicionados - Lista personalizada do usuário.
+ * @returns {Object} Objeto com todas as expressões regulares.
  */
 function todosOsFiltros(adicionados) {
   adicionados = adicionados || [];
