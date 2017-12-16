@@ -17,31 +17,32 @@ function Piii(censura, opcoes) {
   var desacentuar = opcoes.desacentuador || require("diacritics").remove;
   var ignorados = opcoes.ignorar || [];
 
-  if (!Array.isArray(adicionados)) {
-    throw new Error("Deve ser uma array");
+  var adicionadosNaoEhArray = !Array.isArray(adicionados);
+  var complementadosNaoEhObjeto = typeof complementados !== "object";
+  var desacentuarNaoEhFuncao = typeof desacentuar !== "function";
+  var ignoradosNaoEhArray = !Array.isArray(ignorados);
+
+  function lancarErro(mensagem) {
+    throw new Error(mensagem);
   }
 
-  if (typeof complementados !== "object") {
-    throw new Error("Deve ser um objeto");
-  }
-
-  if (typeof desacentuar !== "function") {
-    throw new Error("Deve ser uma função");
-  }
-
-  if (!Array.isArray(ignorados)) {
-    throw new Error("Deve ser uma array");
-  }
+  if (adicionadosNaoEhArray) lancarErro("Deve ser uma array");
+  if (complementadosNaoEhObjeto) lancarErro("Deve ser um objeto");
+  if (desacentuarNaoEhFuncao) lancarErro("Deve ser uma função");
+  if (ignoradosNaoEhArray) lancarErro("Deve ser uma array");
 
   // (Para não causar conflitos posteriores.)
   var censuraOriginal = censura;
 
-  censura = censura instanceof Function
-    ? censura
-    : function () {
+  // Censura será analisada como uma função,
+  // mas ela poderá ser passada em outros tipos.
+  var censuraNaoEhFuncao = typeof censura !== "function";
+
+  if (censuraNaoEhFuncao) {
+    censura = function () {
       return (censuraOriginal || "*").toString();
     }
-  ;
+  }
 
   /**
    * Censurar os palavrões.
