@@ -1,5 +1,0 @@
-/*!
- * Piii.js v<%= pkg.version %>
- * (c) 2016-<%= (new Date()).getFullYear() %> Matheus Alves
- * https://github.com/theuves/piii.js
- */
