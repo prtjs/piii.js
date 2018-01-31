@@ -1,15 +1,13 @@
 "use strict";
 
-const parseList = require("./parseList");
-const isObject = require("../utils/isObject");
+const arrayToRegex = require("./arrayToRegex");
+const isArray = require("../utils/isArray");
 
 function createFilter(array = []) {
-  if (!array.every(isObject))
-    throw new TypeError("must be only objects");
+  if (!array.every(isArray))
+    throw new TypeError("must be an array of arrays");
 
-  return array
-    .map(parseList)
-    .join("");
+  return arrayToRegex(array);
 }
 
 module.exports = createFilter;

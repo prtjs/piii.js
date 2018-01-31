@@ -1,3 +1,7 @@
 "use strict";
 
-module.exports = value => typeof value === "string";
+function isString(value) {
+  return typeof value === "string";
+}
+
+module.exports = isString;
