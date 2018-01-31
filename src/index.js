@@ -18,6 +18,9 @@ class Piii {
   filter(string) {
     return filter(string, this.filters, this.censor, this.cleaner);
   }
+  has(string) {
+    return this.filter(string) !== string;
+  }
 }
 
 module.exports = Piii;
