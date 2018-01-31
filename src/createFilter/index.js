@@ -1,13 +1,33 @@
 "use strict";
 
-const arrayToRegex = require("./arrayToRegex");
+const justJoin = require("./justJoin");
+const joinArrays = require("./joinArrays");
+const joinStrings = require("./joinStrings")
+const reverse = require("../utils/reverse");
 const isArray = require("../utils/isArray");
+const isString = require("../utils/isString");
+const hasOnlyLetters = require("../utils/hasOnlyLetters");
 
-function createFilter(array = []) {
-  if (!array.every(isArray))
-    throw new TypeError("must be an array of arrays");
+function createFilter(value) {
+  if (isString(value)) {
+    if (hasOnlyLetters(value)) return value;
 
-  return arrayToRegex(array);
+    throw new Error("must have only letters");
+  }
+
+  if (isArray(value)) {
+    if (value.every(isString)) {
+      if (value.every(hasOnlyLetters)) return joinStrings(value);
+
+      throw new Error("must have only letters");
+    }
+
+    if (value.every(isArray)) return joinArrays(value.map(createFilter));
+
+    return justJoin(value.map(createFilter));
+  }
+
+  throw new TypeError("must be a string or an array");
 }
 
 module.exports = createFilter;

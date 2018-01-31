@@ -7,11 +7,11 @@ const removeAccents = require("diacritics").remove;
 
 class Piii {
   constructor(options = {}) {
-    const {filters = [], censor = () => "*", cleaner = removeAccents} = options;
+    const {filters = [], censor = () => "*", cleaner = removeAccents, repeated = true} = options;
 
     if (!isArray(filters)) throw TypeError("must be an array");
 
-    this.filters = generateRegex(filters);
+    this.filters = generateRegex(filters, repeated);
     this.censor = typeof censor === "function" ? censor : () => censor;
     this.cleaner = typeof cleaner === "function" ? cleaner : removeAccents;
   }
