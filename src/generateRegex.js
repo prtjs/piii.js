@@ -1,9 +1,12 @@
 "use strict";
 
-function generateRegex(filters = []) {
-  const regexs = filters.join("|");
+const createFilter = require("./createFilter");
 
-  return new RegExp(`\\b(${regexs})\\b`, "g");
+function generateRegex(filters = []) {
+  const filtersInRegex = filters.map(createFilter);
+  const regex = filtersInRegex.join("|");
+
+  return new RegExp(`\\b(${regex})\\b`, "g");
 }
 
 module.exports = generateRegex;

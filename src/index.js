@@ -3,7 +3,6 @@
 const filter = require("./filter");
 const generateRegex = require("./generateRegex");
 const isArray = require("./utils/isArray");
-const createFilter = require("./createFilter");
 const removeAccents = require("diacritics").remove;
 
 class Piii {
@@ -20,7 +19,5 @@ class Piii {
     return filter(string, this.filters, this.censor, this.cleaner);
   }
 }
-
-Piii.createFilter = createFilter;
 
 module.exports = Piii;
