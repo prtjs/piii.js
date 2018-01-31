@@ -8,7 +8,7 @@ const isArray = require("../utils/isArray");
 const isString = require("../utils/isString");
 const hasOnlyLetters = require("../utils/hasOnlyLetters");
 
-function createFilter(value) {
+function arrayToRegex(value) {
   if (isString(value)) {
     if (hasOnlyLetters(value)) return value;
 
@@ -22,12 +22,12 @@ function createFilter(value) {
       throw new Error("must have only letters");
     }
 
-    if (value.every(isArray)) return joinArrays(value.map(createFilter));
+    if (value.every(isArray)) return joinArrays(value.map(arrayToRegex));
 
-    return justJoin(value.map(createFilter));
+    return justJoin(value.map(arrayToRegex));
   }
 
   throw new TypeError("must be a string or an array");
 }
 
-module.exports = createFilter;
+module.exports = arrayToRegex;

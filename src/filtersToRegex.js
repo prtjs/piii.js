@@ -1,10 +1,10 @@
 "use strict";
 
-const createFilter = require("./createFilter");
+const arrayToRegex = require("./arrayToRegex");
 
-function generateRegex(filters = [], repeated) {
+function filtersToRegex(filters = [], repeated) {
   const filtersInString = filters
-    .map(createFilter)
+    .map(arrayToRegex)
     .join("|");
 
     const regex = repeated
@@ -14,4 +14,4 @@ function generateRegex(filters = [], repeated) {
   return new RegExp(`\\b(${regex})\\b`, "g");
 }
 
-module.exports = generateRegex;
+module.exports = filtersToRegex;

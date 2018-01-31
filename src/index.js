@@ -1,7 +1,7 @@
 "use strict";
 
 const filter = require("./filter");
-const generateRegex = require("./generateRegex");
+const filtersToRegex = require("./filtersToRegex");
 const isArray = require("./utils/isArray");
 const removeAccents = require("diacritics").remove;
 
@@ -11,7 +11,7 @@ class Piii {
 
     if (!isArray(filters)) throw TypeError("must be an array");
 
-    this.filters = generateRegex(filters, repeated);
+    this.filters = filtersToRegex(filters, repeated);
     this.censor = typeof censor === "function" ? censor : () => censor;
     this.cleaner = typeof cleaner === "function" ? cleaner : removeAccents;
   }
