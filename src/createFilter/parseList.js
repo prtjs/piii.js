@@ -1,16 +1,22 @@
 "use strict";
 
+const arrayToRegex = require("./arrayToRegex");
 const hasOnlyLetters = require("../utils/hasOnlyLetters");
 const isArray = require("../utils/isArray");
+const isBoolean = require("../utils/isBoolean");
 
 function parseList(object) {
-  if (isArray(object.value) && !object.value.every(hasOnlyLetters))
+  const {optional, value} = object;
+
+  if (optional && !isBoolean(optional))
+    throw new TypeError("must be a boolean value");
+
+  if (isArray(value) && !value.every(hasOnlyLetters))
     throw new Error("must has only letters");
 
-  const list = object.value.join("|");
-  const optional = object.optional;
+  const regex = arrayToRegex(value);
 
-  return `(${list})${optional ? "?" : ""}`;
+  return regex + (optional ? "?" : "");
 }
 
 module.exports = parseList;
