@@ -1,14 +1,16 @@
 "use strict";
 
-const hasOnlyLetters = require("./hasOnlyLetters");
+const hasOnlyLetters = require("../utils/hasOnlyLetters");
+const isArray = require("../utils/isArray");
 
-function parseList(array) {
-  if (!array.every(hasOnlyLetters))
+function parseList(object) {
+  if (isArray(object.value) && !object.value.every(hasOnlyLetters))
     throw new Error("must has only letters");
 
-  const list = array.join("|");
+  const list = object.value.join("|");
+  const optional = object.optional;
 
-  return `(${list})`;
+  return `(${list})${optional ? "?" : ""}`;
 }
 
 module.exports = parseList;

@@ -1,11 +1,11 @@
 "use strict";
 
 const parseList = require("./parseList");
-const isArray = require("../utils/isArray");
+const isObject = require("../utils/isObject");
 
 function createFilter(array = []) {
-  if (!array.every(isArray))
-    throw new TypeError("must be only arrays");
+  if (!array.every(isObject))
+    throw new TypeError("must be only objects");
 
   return array
     .map(parseList)
