@@ -3,13 +3,13 @@
 const isString = require("../utils/isString");
 const createRegex = require("./createRegex");
 const isValidKey = require("./isValidKey");
-const isValidAlias = require("./isValidAlias");
+const isValidAliases = require("./isValidAliases");
 
 function buildAliases(aliases) {
   const keys = Object.keys(aliases);
   const values = Object.values(aliases);
 
-  if (!keys.every(isValidKey) || !values.every(isValidAlias))
+  if (!keys.every(isValidKey) || !values.every(isValidAliases))
     throw new Error("invalid alias");
 
   return keys.map(key => {
