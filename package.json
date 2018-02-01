@@ -10,10 +10,6 @@
   "devDependencies": {
     "webpack": "^3.10.0"
   },
-  "scripts": {
-    "test": "ava",
-    "build": "gulp"
-  },
   "repository": {
     "type": "git",
     "url": "git://github.com/theuves/piii.js.git"
