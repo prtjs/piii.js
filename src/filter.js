@@ -1,7 +1,7 @@
 "use strict";
 
 function filter(string, regex, censor, clear) {
-  const match = string.match(regex);
+  const match = clear(string).match(regex);
 
   if (match === null) return string;
 
