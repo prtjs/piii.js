@@ -3,9 +3,11 @@
 const arrayToRegex = require("./arrayToRegex");
 const buildAliases = require("./buildAliases");
 const addAliases = require("./addAliases");
-const objectIsEmpty = object => Object.keys(object).length === 0;
+const objectIsEmpty = require("./utils/isEmpty");
 
 function filtersToRegex(filters, repeated, aliases) {
+  if (objectIsEmpty(filters)) return RegExp();
+
   let regex;
 
   regex = filters

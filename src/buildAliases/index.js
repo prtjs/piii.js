@@ -2,14 +2,14 @@
 
 const isString = require("../utils/isString");
 const createRegex = require("./createRegex");
-const isValidKey = require("./isValidKey");
-const isValidAliases = require("./isValidAliases");
+const isJustOneLetter = require("./isJustOneLetter");
+const isValid = require("./isValid");
 
 function buildAliases(aliases) {
   const keys = Object.keys(aliases);
   const values = Object.values(aliases);
 
-  if (!keys.every(isValidKey) || !values.every(isValidAliases))
+  if (!keys.every(isJustOneLetter) || !values.every(isValid))
     throw new Error("invalid alias");
 
   return keys.map(key => {

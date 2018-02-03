@@ -1,6 +1,8 @@
 "use strict";
 
 function filter(string, regex, censor, clear) {
+  if (regex.source === "(?:)") return string;
+
   const match = clear(string).match(regex);
 
   if (match === null) return string;
