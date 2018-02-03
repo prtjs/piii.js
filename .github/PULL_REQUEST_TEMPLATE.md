@@ -1,1 +1,2 @@
-<!-- Dê preferência para língua portuguesa. -->
+<!-- Dê preferência para a língua portuguesa. -->
+
