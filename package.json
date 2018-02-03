@@ -11,10 +11,14 @@
     "escape-string-regexp": "^1.0.5"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
     "webpack": "^3.10.0"
   },
   "scripts": {
-    "build": "webpack",
+    "prepublishOnly": "npm run build",
+    "build": "npm test && webpack",
     "test": "jasmine --config=jasmine.json"
   },
   "repository": {
