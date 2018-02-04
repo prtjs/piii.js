@@ -1,6 +1,6 @@
 {
   "name": "piii.js",
-  "version": "3.0.1-beta.1",
+  "version": "4.0.1",
   "description": "Um avançado filtro de palavrões.",
   "main": "dist/piii.js",
   "repository": {
