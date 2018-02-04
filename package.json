@@ -22,10 +22,7 @@
     "build": "rm -rf dist/* && npm test && webpack",
     "test": "jasmine --config=jasmine.json"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/theuves/piii.js.git"
-  },
+  "repository": "piiijs/piii.js",
   "author": {
     "name": "Matheus Alves",
     "email": "theuves@gmail.com"
