@@ -5,7 +5,7 @@
   "main": "dist/piii.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/theuves/piii.js.git"
+    "url": "git://github.com/piiijs/piii.js.git"
   },
   "authors": [{
     "name": "Matheus Alves",
