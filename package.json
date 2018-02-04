@@ -1,6 +1,6 @@
 {
   "name": "piii",
-  "version": "3.0.1-beta.1",
+  "version": "4.0.0",
   "description": "Um avançado filtro de palavrões.",
   "main": "dist/piii.js",
   "files": [
