@@ -16,12 +16,12 @@ class Piii {
 
     if (!isArray(filters)) throw TypeError("must be an array");
 
-    this.filters = filtersToRegex(filters, repeated, aliases);
-    this.censor = typeof censor === "function" ? censor : () => censor;
-    this.cleaner = typeof cleaner === "function" ? cleaner : removeAccents;
+    this._filters = filtersToRegex(filters, repeated, aliases);
+    this._censor = typeof censor === "function" ? censor : () => censor;
+    this._cleaner = typeof cleaner === "function" ? cleaner : removeAccents;
   }
   filter(string) {
-    return filter(string, this.filters, this.censor, this.cleaner);
+    return filter(string, this._filters, this._censor, this._cleaner);
   }
   has(string) {
     return this.filter(string) !== string;
