@@ -5,6 +5,8 @@ Piii.js
 
 [![Build Status](https://travis-ci.org/piiijs/piii.js.svg?branch=master)]()
 
+[![NPM](https://nodei.co/npm/piii.png?mini=true)]()
+
 Veja a documentação em &lt;https://git.io/piii-docs&gt;.
 
 Características
@@ -18,14 +20,6 @@ Você poderá:
 * :dancers: Ignorar letras repetidas.
 * :lipstick: Criar um filtro personalizado.
 * :muscle: Manipular o palavrão antes de filtrá-lo.
-
-Instalação
-----------
-
-* Instale-o com [*npm*](https://www.npmjs.com/): `npm install --save piii`.
-* Instale-o com [*bower*](https://bower.io/): `bower install --save piii.js`.
-* Importe-o com [*unpkg.com*](https://unpkg.com/): `https://unpkg.com/piii`.
-* ...Ou baixe o arquivo *zipado* [aqui](https://git.io/vNAMM).
 
 Licença
 -------
