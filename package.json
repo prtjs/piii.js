@@ -2,7 +2,7 @@
   "name": "piii",
   "version": "3.0.1-beta.1",
   "description": "Um avançado filtro de palavrões.",
-  "main": "src/index.js",
+  "main": "dist/piii.js",
   "files": [
     "dist"
   ],
