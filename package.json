@@ -14,6 +14,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
+    "jasmine": "^2.9.0",
     "webpack": "^3.10.0"
   },
   "scripts": {
