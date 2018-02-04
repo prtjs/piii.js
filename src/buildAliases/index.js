@@ -13,6 +13,9 @@ function buildAliases(aliases) {
     throw new Error("invalid alias");
 
   return keys.map(key => {
+    if (aliases[key].includes(key))
+      throw new Error("invalid alias");
+
     return {
       char: key,
       value: createRegex(key, aliases[key])
