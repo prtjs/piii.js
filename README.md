@@ -3,7 +3,9 @@ Piii.js
 
 > Um avançado filtro de palavrões.
 
-Veja a documentação em &lt;https://piii.js.org/&gt;.
+[![Build Status](https://travis-ci.org/piiijs/piii.js.svg?branch=master)]()
+
+Veja a documentação em &lt;https://git.io/piiijs&gt;.
 
 Características
 ---------------
