@@ -5,7 +5,7 @@ Piii.js
 
 [![Build Status](https://travis-ci.org/piiijs/piii.js.svg?branch=master)]()
 
-Veja a documentação em &lt;https://git.io/piiijs&gt;.
+Veja a documentação em &lt;https://git.io/piii-docs&gt;.
 
 Características
 ---------------
