@@ -22,7 +22,7 @@ function filtersToRegex(filters, repeated, aliases) {
     regex = addAliases(regex, buildAliases(aliases));
   }
 
-  return new RegExp(`\\b(${regex})\\b`, "g");
+  return new RegExp(`\\b(${regex})\\b`, "gi");
 }
 
 module.exports = filtersToRegex;
