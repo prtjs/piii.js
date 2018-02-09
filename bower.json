@@ -2,6 +2,14 @@
   "name": "piii.js",
   "description": "Um avançado filtro de palavrões.",
   "main": "dist/piii.js",
+  "ignore": [
+    "**/.*",
+    "spec",
+    "src",
+    "jasmine.json",
+    "package-lock.json",
+    "webpack.config.js"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/piiijs/piii.js.git"
