@@ -1,7 +1,7 @@
 "use strict";
 
 function hasRepeatedValues(array) {
-  return !array.every(function (value, index, self) {
+  return !array.every((value, index, self) => {
     return self.indexOf(value) === self.lastIndexOf(value);
   });
 }
