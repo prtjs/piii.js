@@ -1,10 +1,12 @@
 "use strict";
 
 const reverse = require("../utils/reverse");
-const sort = array =>  Array.from(array).sort();
+const removeRepeatedValues = require("../utils/removeRepeatedValues");
+const toLowerCase = require("../utils/toLowerCase");
+const sort = require("../utils/sort");
 
 function joinStrings(value) {
-  return `(${reverse(sort(value)).join("|")})`;
+  return `(${reverse(sort(removeRepeatedValues(toLowerCase(value)))).join("|")})`;
 }
 
 module.exports = joinStrings;
