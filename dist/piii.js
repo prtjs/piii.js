@@ -1,5 +1,5 @@
 /*!
- * Piii.js v4.0.1
+ * Piii.js v4.0.2
  * (c) 2016-2018 Matheus Alves
  * License: MIT
  */
