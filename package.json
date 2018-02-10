@@ -19,7 +19,7 @@
   },
   "scripts": {
     "prepublishOnly": "npm run build",
-    "build": "rm -rf dist/* && npm test && webpack",
+    "build": "npm test && rm -rf dist/* && webpack",
     "test": "jasmine --config=jasmine.json"
   },
   "repository": "piiijs/piii.js",
