@@ -9,9 +9,12 @@ const banner = `Piii.js v${pkg.version}
 License: MIT`;
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: {
+    "piii": "./src/index.js",
+    "piii.min": "./src/index.js"
+  },
   output: {
-    filename: "piii.js",
+    filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
     library: "Piii",
     libraryTarget: "umd"
@@ -29,7 +32,9 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      include: /\.min\.js$/
+    }),
     new webpack.BannerPlugin(banner)
   ]
 };
