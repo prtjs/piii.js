@@ -3,7 +3,8 @@ Piii.js
 
 > Um avançado filtro de palavrões.
 
-[![Build Status](https://travis-ci.org/piiijs/piii.js.svg?branch=master)]()
+[![Build Status](https://travis-ci.org/piiijs/piii.js.svg?branch=master)](https://travis-ci.org/piiijs/piii.js)
+[![Doar](https://img.shields.io/badge/paypal-doar-179bd7.svg?logo=paypal&style=flat&logoColor=blue)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3WZ447WCJ54XG&source=url)
 
 [![NPM](https://nodei.co/npm/piii.png?mini=true)]()
 
