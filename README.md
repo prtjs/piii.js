@@ -3,6 +3,12 @@ Piii.js
 
 > Um avançado filtro de palavrões.
 
+***
+
+**Este projeto não é mais mantido. [Leia aqui a nota de arquivamento](https://github.com/portujs/piii.js/issues/8).**
+
+***
+
 [![Build Status](https://travis-ci.org/piiijs/piii.js.svg?branch=master)](https://travis-ci.org/piiijs/piii.js)
 [![Doar](https://img.shields.io/badge/paypal-doar-179bd7.svg?logo=paypal&style=flat&logoColor=blue)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3WZ447WCJ54XG&source=url)
 
